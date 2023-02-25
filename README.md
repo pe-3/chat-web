@@ -1,24 +1,10 @@
-# techat
+作为一个聊天系统，改项目应该拥有最基本的聊天功能，也就是文字交流。
+- 然后是图片发送
+- 链接发送
+- 链接卡片展示【进阶】
+- 文件发送
 
-## Project setup
-```
-npm install
-```
+然后还有好友系统模块
+- 定义不同的好友和群组
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+pages 目录下的嵌套是和路由对应的，当前目录对应的组件是 目录名 + Index

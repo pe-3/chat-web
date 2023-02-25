@@ -1,0 +1,38 @@
+height-center(h)
+    height h
+    line-height h
+
+grid-center()
+    display grid
+    place-content center
+
+size(w, h = w)
+    width w
+    height h
+
+max-size(w, h)
+    size 90vw 95vh
+    max-width w
+    max-height h
+
+el-shadow(base = false)
+    if base
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    else 
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+
+flex-between()
+    display flex
+    justify-content space-between
+    align-items center
+
+absolute-center()
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+
+over-ellipsis()
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
