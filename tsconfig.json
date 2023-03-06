@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+      // 与 Vue 的浏览器支持保持一致
+      "target": "es5",
+      // 这可以对 `this` 上的数据 property 进行更严格的推断
+      "strict": true,
+      // 如果使用 webpack 2+ 或 rollup，可以利用 tree-shake:
+      "module": "esnext",
+      "moduleResolution": "node",
+      // pixi.js类型有问题 不检查依赖
+      "skipLibCheck": true,
+      // 支持vue模板
+      "jsx": "preserve",
+      "baseUrl": ".",
+      "paths": {
+          "@/*": ["src/*"],
+          "unit/*": ["test/unit/*"],
+          "@editor/*": ["src/packages/editor/*"]
+      },
+      "allowJs": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}

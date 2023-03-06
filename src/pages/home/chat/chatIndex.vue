@@ -11,7 +11,7 @@
                     v-for="index in 10"
                     :key="index"
                     @click="chatIndex = index"
-                    :class="{selected: chatIndex === index}"
+                    :class="{['selected-item']: chatIndex === index}"
                 />
             </div>
         </div>
@@ -56,16 +56,5 @@ export default {
             overflow auto
     .chat-dialog
         flex 1
-    .selected 
-        position relative
-        background #efefef
-        &:before
-            display block
-            content ''
-            width 3px
-            height 100%
-            background #3370ff
-            position absolute
-            left 0
 </style>
 

@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'animate.css';
 import mixins from './mixins'
+import store from './store'
 
 Vue.config.productionTip = false;
 
@@ -21,5 +22,6 @@ regCom(Vue, _common_com);
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

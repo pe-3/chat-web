@@ -1,2 +1,29 @@
 @import './func.styl'
 
+.selected-item
+    position relative
+    background #efefef
+    &:before
+        display block
+        content ''
+        width 3px
+        height 100%
+        background #3370ff
+        position absolute
+        left 0
+
+.text-center
+    text-align center
+
+.divide-line
+    border-top 1px solid #cdcdcd
+    margin-top 20px
+
+.el-loading-mask
+.loading-curtain
+    background-image linear-gradient(-150deg, #222222 15%, #373737 70%, #3c4859 94%) !important;
+
+
+.keynote
+    color #F56C6C
+    font-weight bold

@@ -1,6 +1,5 @@
 <template>
     <span class="te-logo">
-        Techat
     </span>
 </template>
 

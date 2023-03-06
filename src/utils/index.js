@@ -1,8 +1,9 @@
 /**
  * 锁，用来处理一些临界资源
  * 比如只需要发一次的请求不能多次发
+ * @method Lock.add 添加锁到资源
+ * @method Lock.remove 移除锁
  */
-
 export class Lock {
     constructor() {
         this.pool = new Map();
@@ -29,4 +30,11 @@ export class Lock {
     remove(key) {
         this.pool.delete(key);
     }
+}
+
+export function getPropsFromVData(vue, ...props) {
+    return props.reduce((result, propName) => {
+        result[propName] = vue[propName];
+        return result
+    }, {});
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Lock } from "@/utils";
 import qs from 'qs'
+import store from "@/store";
 
 // 1. 创建 axios 实例，设置超时时间和基础路径
 const service = axios.create({
@@ -9,12 +10,13 @@ const service = axios.create({
 });
 
 // 2. 创建一个请求池，一个请求不能发送两次
+
 const reqLock = new Lock();
 
 // 3. 构建默认参数 （token、id、timeStamp)
 const defaultParams = function() {
     const params = {
-        token: 'token'
+
     };
 
     return params;
@@ -23,13 +25,11 @@ const defaultParams = function() {
 // (5.) 接口调试模式？？？
 // 6. 请求配置兜底
 // 7. 设置请求拦截器和响应转化器
-let requestConfig = {};
 
+let requsetConfig;
 service.interceptors.request.use(
     config => {
-        // 报错时，传递给的配置
-        requestConfig = config;
-        console.log(requestConfig); 
+        requsetConfig = config;
         // 配置默认传参
         const params = defaultParams();
         const queryString = qs.stringify(params);
@@ -39,6 +39,11 @@ service.interceptors.request.use(
             if(config.method === 'post') {
                 config.data && Object.assign(config.data, params);
             }
+        }
+        // 设置token
+        if(config.url.indexOf('sign') === -1) {
+            config.headers = config.headers ?? {};
+            config.headers.authorization = store.getters.token;
         }
 
         // 同一请求不能并发
@@ -52,8 +57,12 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use((response = {}) => {
+    const {config} = response;
+    reqLock.remove(config.url);
     return response.data;
 }, error => {
+    const config = error.config ?? requsetConfig;
+    reqLock.remove(config.url);
     console.log(error);
 });
 
@@ -68,6 +77,9 @@ export default async function ajax(config, retry = 0) {
         console.log(error);
         if(retry < MAX_RETRY_NUM) {
             return ajax(config, retry + 1);
+        }
+        else {
+            reqLock.remove(config.url);
         }
     }
 }
