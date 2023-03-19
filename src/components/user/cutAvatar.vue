@@ -176,16 +176,14 @@ export default {
                 const res = await uploadAvatar(
                     formData
                 );
-                this.$success(res.message);
                 const {path} = res;
 
                 // 设置头像
-                const res2 = await updateUserInfo({
+                await updateUserInfo({
                     avatar: path
                 });
                 
                 this.setUser({...store.getters.user, avatar: path});
-                this.$success(res2.message);
             } catch (error) {
                 this.$warn(error.message);
             }

@@ -130,7 +130,6 @@ export default {
 
         // 2. 请求用户个人信息，存在 vuex里 (做持久化？)
         this.getUserInfo().then(() => {
-            this.$success('欢迎回来');
             this.loading = false;
         });
     },

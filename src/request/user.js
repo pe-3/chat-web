@@ -4,7 +4,6 @@ import ajax from "@/utils/ajax";
  * 查询用户个人信息
  * @returns {Promise}
  */
-
 export function getUserInfo() {
     return ajax({
         method: 'get',
@@ -12,16 +11,24 @@ export function getUserInfo() {
     });
 }
 
-
 /**
  * 修改用户个人信息
  */
-
-
 export function updateUserInfo(data) {
     return ajax({
-        method: 'put',
-        url: '/user',
+        method: 'post',
+        url: '/user/update',
         data
     })
+}
+
+/**
+ * 查找用户
+ */
+export function findUser(params) {
+    return ajax({
+        method: 'get',
+        url: '/user/find',
+        params
+    });
 }

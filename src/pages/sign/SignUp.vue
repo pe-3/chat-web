@@ -67,8 +67,7 @@ export default {
     methods: {
         async _getMail() {
             const {mail} = this;
-            const {message} = await getMail({mail});
-            this.$success(message);
+            await getMail({mail});
         },
         async _signup() {
             try {
@@ -78,13 +77,12 @@ export default {
                     mail,
                     code
                 } = this;
-                const {message} = await signup({
+                await signup({
                     username,
                     password,
                     mail,
                     code
                 });
-                this.$success(message);
             } catch (error) {
                 console.warn(error);
                 this.$warn(error);

@@ -1,6 +1,6 @@
 <template>
     <div class="te-avatar" :style="{ width: size, height: size }">
-        <img :src="src" alt="头像">
+        <img :src="src ?? DEFAULT_AVATAR" alt="头像">
         <div 
             v-if="upload"
             class="te-avatar-upload" 

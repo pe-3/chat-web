@@ -30,45 +30,18 @@
                 </el-popover>
             </div>
             <div class="mail-list-wrapper">
-                <te-fold 
-                    @toggle="showNewFriend = $event"
-                >
-                    新的好友
-                </te-fold>
-                <div class="mail-item-list" v-if="showNewFriend">
-                    <mail-item
-                        v-for="index in 10"
-                        :key="index"
-                        @click="select(index, 'newFri')"
-                        :class="{['selected-item']: judgeSelect(index, 'newFri')}"       
-                    />
-                </div>
-                <te-fold 
-                    @toggle="showFriend = $event"
-                >
-                    联系人
-                </te-fold>
-                <div class="mail-item-list" v-if="showFriend">
-                    <mail-item
-                        v-for="index in 10"
-                        :key="index"
-                        @click="select(index, 'fir')"
-                        :class="{['selected-item']: judgeSelect(index, 'fir')}"       
-                    />
-                </div>
-                <te-fold 
-                    @toggle="showGroup = $event"
-                >
-                    我的群组
-                </te-fold>
-                <div class="mail-item-list" v-if="showGroup">
-                    <mail-item
-                        v-for="index in 5"
-                        :key="index"
-                        @click="select(index, 'group')"
-                        :class="{['selected-item']: judgeSelect(index, 'group')}"       
-                    />
-                </div>
+                <agree-list 
+                    :select="select"
+                    :judgeSelect="judgeSelect"
+                />
+                <friend-list 
+                    :select="select"
+                    :judgeSelect="judgeSelect"
+                />
+                <group-list
+                    :select="select"
+                    :judgeSelect="judgeSelect"
+                />
             </div>
             <transition
                 enter-class="none"
@@ -80,35 +53,53 @@
                 <router-view></router-view>
             </transition>
         </div>
-        <div class="mail-detail">
-
+        <div class="mail-content">
+            <mail-detail
+                :select-friend="selectFriend"
+            />
         </div>
     </div>
 </template>
 
 <script>
-import mailItem from '@/components/mail/mailItem.vue';
 import addItem from '@/components/mail/addItem.vue';
+import agreeList from '@/views/home/mail/agreeList.vue';
+import friendList from '@/views/home/mail/friendList';
+import groupList from '@/views/home/mail/groupList.vue';
+
+import pageMinxi from '@/mixins/page';
+import mailDetail from '@/views/home/mail/mailDetail';
+
 export default {
     name: 'mail-list-index',
+    mixins: [pageMinxi],
     components: {
-        mailItem,
-        addItem
+        addItem,
+        agreeList,
+        friendList,
+        groupList,
+        mailDetail
     },
     data() {
-        return {
-            mailIndex: 0,
-            showFriend: false,
-            showNewFriend: false,
-            showGroup: false,
-            showPopover: false,
+        const MAIL = {
+            mailIndex: -1,
             mailType: '',
+            selectFriend: {}
+        }
+
+        const SHOW = {
+            showPopover: false
+        }
+        return {
+            ...MAIL,
+            ...SHOW
         }
     },
     methods: {
-        select(index, type) {
+        select(index, type, data) {
             this.mailIndex = index;
             this.mailType = type;
+            this.selectFriend = data;
         },
         judgeSelect(index, type) {
             return index === this.mailIndex
@@ -133,8 +124,8 @@ export default {
         .mail-list-wrapper
             max-height calc(100% - 52px)
             overflow auto   
-            .mail-item-list
+            >>>.mail-item-list
                 padding 0 10px
-    .mail-dialog
+    .mail-content
         flex 1
 </style>

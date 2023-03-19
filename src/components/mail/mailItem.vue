@@ -1,16 +1,16 @@
 <template>
     <div class="mail-item" @click="$emit('click')">
         <te-avatar
-            :src="AVATAR"
+            :src="data.avatar"
             size="60px"
         />
         <div class="mail-item-info">
             <div class="mail-item-info-header flex-between">
-                <div class="mail-item-name">王德发</div>
+                <div class="mail-item-name">{{ data.nickname ?? '昵称加载失败' }}</div>
                 <div class="mail-item-last-online-time">上次在线：11.3</div>
             </div>
             <div class="mail-item-intro">
-                无个性不签名
+                {{ data.intro ?? '暂无' }}
             </div>
         </div>
     </div>
@@ -19,9 +19,10 @@
 <script>
 export default {
     name: 'mail-item',
-    data() {
-        return  {
-
+    props: {
+        data: {
+            type: Object,
+            required: true
         }
     }
 }
@@ -50,6 +51,8 @@ export default {
             font-size 12px
             color #999
             vertical-align center
+            white-space nowrap
+            over-ellipsis()
         .mail-item-info-header
             margin-bottom 3px
 </style>

@@ -23,10 +23,7 @@
 
 <script>
 export default {
-    name: 'sign-index',
-    components: {
-
-    }
+    name: 'sign-index'
 }
 </script>
 

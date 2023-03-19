@@ -19,14 +19,22 @@
         </div>
         <div class="mail-add-search">
             <te-search
-                :placeholder="`输入 ${swith === 'people' ? 'TE号/邮箱' : '群号/群名称'} 以查找`"
+                :placeholder="`输入 ${swith === 'people' ? 'TE号/邮箱/昵称' : '群号/群名称'} 以查找`"
                 v-model="search"
             />
+            <el-button 
+                type="primary" 
+                size="mini" 
+                round 
+                :disabled="!search"
+                @click="_findUser"
+            >查找</el-button>
         </div>
         <div class="mail-add-list">
             <add-fri-item 
-                v-for="index in 10"
+                v-for="(user, index) in list"
                 :key="index"
+                :data="user"
             />
             <line-text
                 pl="10px"
@@ -41,6 +49,7 @@
 
 <script>
 import addFriItem from '@/components/mail/addFriItem.vue';
+import { findUser } from '@/request/user';
 export default {
     name: 'mail-add',
     components: {
@@ -51,6 +60,14 @@ export default {
             swith: 'people',
             search: '',
             list: []
+        }
+    },
+    methods: {
+        async _findUser() {
+            const {userinfo} = await findUser({
+                username: this.search
+            });
+            this.list = [userinfo];
         }
     }
 }
@@ -90,6 +107,9 @@ export default {
             font-weight bolder
     .mail-add-search
         padding 10px
+        flex-between()
+        .el-button
+            margin-left 14px
     .mail-add-list
         max-height calc(100vh - 102px)
         overflow auto

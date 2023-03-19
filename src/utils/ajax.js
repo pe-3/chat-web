@@ -2,6 +2,7 @@ import axios from "axios";
 import { Lock } from "@/utils";
 import qs from 'qs'
 import store from "@/store";
+import { Message } from 'element-ui';
 
 // 1. 创建 axios 实例，设置超时时间和基础路径
 const service = axios.create({
@@ -14,7 +15,7 @@ const service = axios.create({
 const reqLock = new Lock();
 
 // 3. 构建默认参数 （token、id、timeStamp)
-const defaultParams = function() {
+const defaultParams = function () {
     const params = {
 
     };
@@ -34,21 +35,21 @@ service.interceptors.request.use(
         const params = defaultParams();
         const queryString = qs.stringify(params);
         const prefix = config.url.indexOf('?') > -1 ? '&' : '?';
-        if(queryString) {
+        if (queryString) {
             config.url += prefix + queryString;
-            if(config.method === 'post') {
+            if (config.method === 'post') {
                 config.data && Object.assign(config.data, params);
             }
         }
         // 设置token
-        if(config.url.indexOf('sign') === -1) {
+        if (config.url.indexOf('sign') === -1) {
             config.headers = config.headers ?? {};
             config.headers.authorization = store.getters.token;
         }
 
         // 同一请求不能并发
-        if(reqLock.add(config.url)) {
-            return Promise.reject({holdback: true});
+        if (reqLock.add(config.url)) {
+            return Promise.reject({ holdback: true });
         }
 
         return config;
@@ -57,13 +58,29 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use((response = {}) => {
-    const {config} = response;
+    const { config, status } = response;
+    if (status >= 500) {
+        return Message({
+            type: 'error',
+            message: '后台出错了，请稍后'
+        })
+    }
     reqLock.remove(config.url);
-    return response.data;
+    const { message, success, data } = response.data;
+    Message({
+        type: success ? 'success' : 'warning',
+        message
+    });
+    if (!success) return;
+    return data ?? {};
 }, error => {
     const config = error.config ?? requsetConfig;
     reqLock.remove(config.url);
     console.log(error);
+    Message({
+        type: 'error',
+        message: '后台出错了，请稍后'
+    });
 });
 
 // 8. 处理请求抛错
@@ -75,7 +92,7 @@ export default async function ajax(config, retry = 0) {
         return data;
     } catch (error) {
         console.log(error);
-        if(retry < MAX_RETRY_NUM) {
+        if (retry < MAX_RETRY_NUM) {
             return ajax(config, retry + 1);
         }
         else {

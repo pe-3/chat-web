@@ -32,12 +32,14 @@ absolute-center()
     left 50%
     transform translate(-50%, -50%)
 
-over-ellipsis()
+over-ellipsis(max = 80%)
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width max
 
 back-image()
     background-position center
     background-size cover
     background-repeat no-repeat
+

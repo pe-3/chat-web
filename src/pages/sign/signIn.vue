@@ -58,13 +58,11 @@ export default {
                     username,
                     password
                 });
-                const {token, message} = data;
-                this.$success(message);
+                const {token} = data;
                 // 状态管理 token
                 this.setToken(`Bearer ${token}`);
                 this.jump('/chat');
             } catch (error) {
-                this.$warn(error.message);
                 console.warn(error);
             }
         },
