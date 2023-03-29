@@ -16,13 +16,29 @@
             <user-info-card
                 :user="selectFriend"
             />
-            <div class="bottom">
+            <div class="bottom" v-if="type === 'friend'">
                 <el-button 
-                    type="primary" 
-                    circle 
                     icon="el-icon-chat-line-round"
                     size="medium"
-                />
+                    @click="initAChat"
+                >发起对话</el-button>
+                <el-popover 
+                    trigger="click"
+                    placement="right-end"
+                >
+                    <template>
+                        <div class="more-operate">
+                            <el-button type="info">拉黑</el-button>
+                            <el-button type="danger">删除</el-button>
+                        </div>
+                    </template>
+                    <i class="el-icon-more" slot="reference"></i>
+                </el-popover>
+            </div>
+            <div class="bottom" v-else>
+                <el-button
+                    icon="el-icon-plus"
+                >添加好友</el-button>
             </div>
         </div>
     </load-area>
@@ -32,6 +48,8 @@
 import page from '@/mixins/page';
 import UserPicCard from '../user/UserPicCard.vue';
 import UserInfoCard from '../user/UserInfoCard.vue';
+import { mapMutations, mapState } from 'vuex';
+import { $bus } from '@/store';
 export default {
     name: 'mail-detail',
     mixins: [page],
@@ -43,16 +61,37 @@ export default {
         selectFriend: {
             type: Object,
             default: () => ({})
+        },
+        /**
+         * 详情页的类型，是 好友展示，还是添加展示 
+         * friend or add
+         * */
+        type: {
+            type: String,
+            default: 'friend'
         }
     },
     computed: {
         isUserEmpty() {
             return JSON.stringify(this.selectFriend) === '{}';
-        }
+        },
+        ...mapState('chat', ['chats'])
     },
     watch: {
         selectFriend() {
             !this.isUserEmpty && this.setPageSuccess();
+        }
+    },
+    methods: {
+        ...mapMutations('chat',['addChatItem']),
+        initAChat() {
+            this.addChatItem(this.selectFriend);
+            this.jump('/chat', {
+                chatwith: this.selectFriend.username
+            });
+            this.$nextTick(() => {
+                $bus.$emit('chat-index-select-chat');
+            })
         }
     }
 }
@@ -67,11 +106,18 @@ export default {
     position relative
     .bottom
         position absolute
-        bottom 30px
-        text-align right
+        bottom 20px
         padding 0 30px
         right 0
-        .el-button
-            size 45px
-            font-size 18px
+        .el-icon-more
+            transform rotate(90deg)
+            color #999
+            margin-left 20px
+            cursor pointer
+.more-operate
+    display grid
+    gird-template-rows 1fr 1fr
+    .el-button 
+        margin-left 0 !important
+        margin-top 5px
 </style>

@@ -54,10 +54,12 @@
                 <te-icon 
                     v-for="nav,index in LEFT_NAVS"
                     :key="index"
-                    class="menu-icon"
-                    :class="{selcted: navIndex === index}"
                     :icon="nav.icon"
-                    @click="navIndex = index"
+                    :class="{
+                        selcted: navIndex === index,
+                        ['menu-icon']: true
+                    }"
+                    @click="navSelect(index)"
                 />
             </div>
             <div class="menu-list bottom-menu">
@@ -68,7 +70,9 @@
             </div>
         </div>
         <div class="main">
-            <router-view></router-view>
+            <Keep-alive>
+                <router-view></router-view>
+            </Keep-alive>
         </div>
     </div>
 </template>
@@ -77,6 +81,7 @@
 
 import {LEFT_NAVS} from '../../config/page'
 import { mapActions, mapMutations, mapState } from 'vuex';
+import { $bus } from '@/store';
 export default {
     name: 'home-index',
     data() {
@@ -89,49 +94,19 @@ export default {
         }
     },
     computed: {
-        ...mapState('auth', ['user', 'loginless'])
-    },
-    watch: {
-        navIndex(index) {
-            if(index === -1 || !this.canWatch) return;
-            const currentPath = this.$router.currentRoute.fullPath;
-            const {path} = this.LEFT_NAVS[index];
-            // 首次不跳转
-            if(
-                    path &&
-                    path.split('/').pop() !== 
-                    currentPath.split('/').pop()
-            ) {
-                this.jump(path);
-            }
-        }
+        ...mapState('auth', ['user', 'loginless', 'socket']),
     },
     created() {
-        // 1. 路由匹配，对应 tab 显示高亮 
-
-        const currentPath = this.$router.currentRoute.fullPath;
-        // 刷新后重置路由
-        this.navIndex = (() => {
-            for(let i = 0; i < this.LEFT_NAVS.length; i ++) {
-                if(
-                    this.LEFT_NAVS[i].path &&
-                    this.LEFT_NAVS[i].path.split('/').splice(1, 1)[0] === 
-                    currentPath.split('/').splice(1, 1)[0]
-                ) {
-                    return i;
-                }
-            }
-            return -1;
-        })();
-
-        this.$nextTick(() => {
-            this.canWatch = true;
-        });
-
         // 2. 请求用户个人信息，存在 vuex里 (做持久化？)
         this.getUserInfo().then(() => {
             this.loading = false;
         });
+
+        $bus.$on('home-index-navchange', (path) => {
+            this.navJudge(path);
+        });
+
+        this.navJudge(this.$router.currentRoute.fullPath);
     },
     methods: {
         ...mapActions({
@@ -142,7 +117,21 @@ export default {
             //是否免登录，免登录则不删除token
             this.setToken('');
             this.setUser({});
+            this.socket.close();
             this.jump('/sign/signin');
+        },
+        navSelect(navIndex) {
+            const {path}  = this.LEFT_NAVS[navIndex];
+            path && this.jump(path);
+        },
+        navJudge(path) {
+            for(let i in this.LEFT_NAVS) {
+                const navPath = this.LEFT_NAVS[i].path;
+                if(path.indexOf(navPath) !== -1) {
+                    return this.navIndex = Number(i);
+                }
+            }
+            return this.navIndex = -1;
         }
     }
 }

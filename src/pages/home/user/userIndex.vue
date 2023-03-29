@@ -13,13 +13,11 @@
                 />
                 <!-- 编辑信息 -->
                 <el-button 
-                    type="primary" 
                     icon="el-icon-edit" 
-                    circle
                     class="user-info-edit-btn"
                     size="medium"
                     @click="jump('./infoEdit')"
-                />
+                >编辑信息</el-button>
                 <!-- 信息编辑页 -->
                 <transition
                     enter-class="none"
@@ -84,6 +82,4 @@ export default {
         position absolute
         bottom 25px
         right 25px
-        size 45px
-        font-size 18px
 </style>

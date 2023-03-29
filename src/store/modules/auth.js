@@ -1,11 +1,13 @@
 import { getUserInfo } from '@/request/user';
+import Socket from '@/socket';
 
 export default {
     namespaced: true,
     state: {
         token: '',
         user: {},
-        loginless: false
+        loginless: false,
+        socket: null
     },
     mutations: {
         setToken(state, token) {
@@ -16,6 +18,9 @@ export default {
         },
         setLoginLess(state, loginless) {
             state.loginless = loginless;
+        },
+        setSocket(state, socket) {
+            state.socket = socket;
         }
     },
     actions: {
@@ -24,6 +29,7 @@ export default {
                 const res = await getUserInfo();
                 if (res.info) {
                     commit('setUser', res.info);
+                    commit('setSocket', new Socket());
                 }
             } catch (error) {
                 console.error(error);

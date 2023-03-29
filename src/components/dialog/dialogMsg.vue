@@ -1,12 +1,30 @@
 <template>
-    <div class="dialog-msg">
-        <te-avatar
-            :src="AVATAR"
-            size="55px"
-        />
-        <dialog-bubble 
-            msg="这是一大段话"
-        />
+    <div 
+        class="dialog-msg"
+        :class="{['dialog-me']: !isMe}"
+    >
+        <template v-if="!isMe">
+            <dialog-bubble 
+                :msg="msg"
+                :time="time"
+                :is-me="isMe"
+            />
+            <te-avatar
+                :src="avatar"
+                size="55px"
+            />
+        </template>
+        <template v-else>
+            <te-avatar
+                :src="avatar"
+                size="55px"
+            />
+            <dialog-bubble 
+                :msg="msg"
+                :time="time"
+                :is-me="isMe"
+            />
+        </template>
     </div>
 </template>
 
@@ -16,7 +34,25 @@ export default {
     name: 'dialog-msg',
     components: {
         dialogBubble
-    }
+    },
+    props: {
+        msg: {
+            type: String,
+            required: true
+        },
+        avatar: {
+            type: String,
+            required: true
+        },
+        isMe: {
+            type: Boolean,
+            required: true
+        },
+        time: {
+            type: String,
+            required: true
+        }
+    },
 }
 </script>
 
@@ -27,4 +63,8 @@ export default {
     display flex
     align-items center
     font-size 14px
+    overflow hidden
+    max-width 100%
+.dialog-me
+    text-align right
 </style>

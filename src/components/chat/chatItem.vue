@@ -1,24 +1,38 @@
 <template>
     <div class="chat-item" @click="$emit('click')">
         <te-avatar
-            :src="AVATAR"
+            :src="data.avatar"
             size="60px"
         />
         <div class="chat-item-info">
             <div class="chat-item-info-header flex-between">
-                <div class="chat-item-name">第五届字节跳动青训营 - 寒假专场</div>  
-                <div class="chat-item-last-time">2月6号</div>
+                <div class="chat-item-name">{{data.nickname}}</div>  
+                <div class="chat-item-last-time">{{ getTime() }}</div>
             </div>
             <p class="chat-item-last-msg">
-                最近一次的聊天内容
+                {{ data.lastMsg ?? '暂无消息' }}
+                <span class="chat-item-unread" v-if="data.unread">{{data.unread < 99 ? data.unread : '99+'}}</span>
             </p>
         </div>
     </div>
 </template>
 
 <script>
+import { parseTime } from '@/utils';
 export default {
-    name: 'chat-item'
+    name: 'chat-item',
+    props: {
+        data: {
+            type: Object,
+            required: true
+        }
+    },
+    methods: {
+        getTime() {
+            if(!this.data.time) return '';
+            return parseTime(this.data.time);
+        }
+    }
 }
 </script>
 
@@ -45,6 +59,23 @@ export default {
             font-size 12px
             color #999
             vertical-align center
+            position relative
+            over-ellipsis()
+            max-width 100%
+
+            .chat-item-unread
+                position absolute
+                right 0
+                bottom 2px
+                font-size 12px
+                display inline-block
+                size auto 1.2em
+                padding 0 .4em
+                border-radius .6em
+                background red
+                color white
+                text-align center
+                line-height 1.2em
         .chat-item-info-header
             margin-bottom 3px
 </style>

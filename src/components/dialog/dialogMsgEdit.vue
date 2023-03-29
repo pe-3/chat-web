@@ -4,6 +4,8 @@
             <input 
                 type="text" 
                 placeholder="发送消息给 你的朋友"
+                v-model="editMsg"
+                @keyup.enter="send"
             />
             <div class="dialog-msg-btn-list">
                 <span>
@@ -16,7 +18,19 @@
 
 <script>
 export default {
-    name: 'dialog-msg-edit'
+    name: 'dialog-msg-edit',
+    data() {
+        return {
+            editMsg: ''
+        }
+    },
+    methods: {
+        send() {
+            if(!this.editMsg.trim()) return;
+            this.$emit('enter', this.editMsg); 
+            this.editMsg = '';
+        }
+    }
 }
 </script>
 

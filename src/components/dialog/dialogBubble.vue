@@ -1,8 +1,13 @@
 <template>
     <div class="dialog-bubble">
-        <span class="bubble">
-            {{ msg }}
-        </span>
+        <el-tooltip
+            :content="time"
+            :placement="isMe ? 'right-start' : 'left-start'"
+        >
+            <span class="bubble">
+                {{ msg }}
+            </span>
+        </el-tooltip>
     </div>
 </template>
 
@@ -12,7 +17,15 @@ export default {
     props: {
         msg: {
             type: String,
-            require: true
+            required: true
+        },
+        time: {
+            type: String,
+            required: true
+        },
+        isMe: {
+            type: Boolean,
+            required: true
         }
     }
 }
@@ -21,9 +34,13 @@ export default {
 <style lang="stylus" scoped>
 .dialog-bubble
     flex 1
-    
+    margin-top 10px
     .bubble
         padding 10px
         border-radius 10px
         background-color #efefef
+        display inline-block
+        text-align left
+        max-width 90%
+        word-break break-all
 </style>

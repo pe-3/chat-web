@@ -1,13 +1,13 @@
 import store from "@/store";
+import { $bus } from "@/store";
 export default (to, from, next) => {
     const { fullPath: pathTo } = to;
     const { fullPath: pathFrom } = from;
 
-    // console.log('from', pathFrom);
-    // console.log('to', pathTo);
     if (pathFrom === '/') {
         if (pathTo === '/sign/signIn') {
             if (store.getters.token && store.getters.loginless) {
+                $bus.$emit('home-index-navchange', 'chat');
                 return next('/chat');
             }
         }
@@ -17,9 +17,11 @@ export default (to, from, next) => {
                 return next('/sign/signIn');
             }
             else if (pathTo === '/') {
+                $bus.$emit('home-index-navchange', '/chat');
                 return next('/chat');
             }
         }
     }
     next();
+    $bus.$emit('home-index-navchange', pathTo);
 }

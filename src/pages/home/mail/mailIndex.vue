@@ -56,6 +56,7 @@
         <div class="mail-content">
             <mail-detail
                 :select-friend="selectFriend"
+                :type="selectType"
             />
         </div>
     </div>
@@ -84,7 +85,8 @@ export default {
         const MAIL = {
             mailIndex: -1,
             mailType: '',
-            selectFriend: {}
+            selectFriend: {},
+            selectType: 'friend'
         }
 
         const SHOW = {
@@ -100,11 +102,21 @@ export default {
             this.mailIndex = index;
             this.mailType = type;
             this.selectFriend = data;
+            this.selectType = 'friend';
         },
         judgeSelect(index, type) {
             return index === this.mailIndex
             && this.mailType === type;
         }
+    },
+    created() {
+        this.$root.$on('mailIndex-select-friend', (data, type) => {
+            this.selectFriend = data;
+            this.selectType = type ?? 'friend';
+        });
+        this.$once('hook:beforeDestory', () => {
+            this.$root.$off('mailIndex-select-friend');
+        });
     }
 }
 </script>

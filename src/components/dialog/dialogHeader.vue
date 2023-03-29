@@ -1,10 +1,10 @@
 <template>
     <div class="dialog-header flex-between">
         <te-avatar 
-            :src="AVATAR"
+            :src="data.avatar"
             size="60px"
         ></te-avatar>
-        <div class="dialog-name">好友名称</div>
+        <div class="dialog-name">{{data.nickname}}</div>
         <div class="dialog-header-operator">
             <el-button
                 icon="el-icon-check"
@@ -21,9 +21,10 @@
 <script>
 export default {
     name: 'dialog-header',
-    data() {
-        return {
-            
+    props: {
+        data: {
+            type: Object,
+            required: true
         }
     }
 }

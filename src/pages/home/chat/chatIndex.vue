@@ -7,35 +7,124 @@
                 <te-add/>
             </div>
             <div class="chat-list-wrapper">
-                <chat-item
-                    v-for="index in 10"
-                    :key="index"
-                    @click="chatIndex = index"
-                    :class="{['selected-item']: chatIndex === index}"
-                />
+                <load-area
+                    :page-empty="Object.keys(mychats).length === 0"
+                    :load="{
+                        pageLoading,
+                        pageSuccess,
+                        pageInited,
+                        pageFail
+                    }"
+                >
+                    <chat-item
+                        v-for="(data, index) in mychats"
+                        :key="index"
+                        :data="data"
+                        :class="{['selected-item']: curChat.username === data.username}"
+                        @click="selectChat(data)"
+                    />
+                </load-area>
             </div>
         </div>
         <div class="chat-dialog">
-            <dialog-header/>
-            <dialog-msgs/>
+            <load-area
+                :page-empty="JSON.stringify(this.curChat) === '{}'"
+                :load="{
+                    pageLoading,
+                    pageSuccess,
+                    pageInited,
+                    pageFail
+                }"
+            >
+                <dialog-header :data="curChat"/>
+                <dialog-msgs :data="curChat"/>
+            </load-area>
         </div>
     </div>
 </template>
 
 <script>
+import pageMixin from '@/mixins/page';
 import chatItem from '@/components/chat/chatItem.vue';
 import dialogHeader from '@/components/dialog/dialogHeader';
 import dialogMsgs from '@/components/dialog/dialogMsgs.vue';
+import { mapState } from 'vuex';
+import { getQuery } from '@/utils';
+import { $bus } from '@/store';
+import store from '@/store';
+// import { getQuery } from '@/utils';
 export default {
-    name: 'chat-list-index',
+    name: 'chat-index',
+    mixins: [pageMixin],
     components: {
         chatItem,
         dialogHeader,
         dialogMsgs
     },
+    computed: {
+        ...mapState('chat', ['chats']),
+        mychats() {
+            return Object.keys(this.chats).filter(key => {
+                return key.split('-')[0] === store.getters.username;
+            }).reduce((pre, key) => {
+                if(this.chats[key] && this.chats[key].avatar) {
+                    pre[key.split('-')[1]] = this.chats[key];
+                }
+                return pre;
+            }, {});
+        }
+    },
     data() {
         return {
-            chatIndex: 0
+            curChat: {}
+        }
+    },
+    methods: {
+        selectChatByUrl() {
+            const {chatwith} = getQuery();
+            if(chatwith) {
+                this.curChat = this.mychats[chatwith];
+            }
+        },
+        selectChat(data) {
+            if(data === this.curChat) return;
+            this.curChat = data;
+            this.queryChange({
+                chatwith: data.username
+            });
+        },
+        queryChange(newQuery) {
+            this.$router.push(
+                {query: {...this.$router.query, ...newQuery}}
+            );
+        },
+        getKey(chatwith) {
+            return `${store.getters.username}-${chatwith}`;
+        }  
+    },
+    created() {
+        this.selectChatByUrl();
+        console.log(this.$router);
+        $bus.$on('chat-index-chat-change', (chatwith) => {
+            console.log(window.location.href.indexOf('/chat'));
+            if(window.location.href.indexOf('/chat') === -1) {
+                console.log('good');
+                return this.jump('/chat', {
+                    chatwith
+                });
+            }
+            if(getQuery().chatwith === chatwith) return;
+            this.queryChange({chatwith});
+            this.curChat = this.mychats[chatwith];
+        });
+        $bus.$on('chat-index-select-chat', () => {
+            this.selectChatByUrl();
+        });
+        this.setPageSuccess();
+    },
+    watch: {
+        '$route.query'() {
+            this.selectChatByUrl();
         }
     }
 }

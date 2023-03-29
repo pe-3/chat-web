@@ -1,5 +1,5 @@
 <template>
-    <div class="add-fri-item">
+    <div class="add-fri-item" @click="showFriend">
         <te-avatar
             :src="data.avatar"
             size="60px"
@@ -48,6 +48,9 @@ export default {
             } catch (error) {
                 console.warn(error.message);
             }
+        },
+        showFriend() {
+            this.$root.$emit('mailIndex-select-friend', this.data, 'add');
         }
     }
 }

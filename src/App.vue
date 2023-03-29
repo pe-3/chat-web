@@ -2,14 +2,12 @@
   <div id="app-techat">
     <router-view></router-view>
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: 'App',
-  async created() {
-      
-  }
+  name: 'App'
 }
 </script>
 <style lang="stylus">

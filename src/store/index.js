@@ -32,3 +32,5 @@ export default new Vuex.Store({
     getters,
     plugins: [cache]
 });
+
+export const $bus = new Vue();

@@ -7,7 +7,7 @@
         <div class="mail-item-info">
             <div class="mail-item-info-header flex-between">
                 <div class="mail-item-name">{{ data.nickname ?? '昵称加载失败' }}</div>
-                <div class="mail-item-last-online-time">上次在线：11.3</div>
+                <div class="mail-item-last-online-time">上次在线：{{ lastOnlineTime }}</div>
             </div>
             <div class="mail-item-intro">
                 {{ data.intro ?? '暂无' }}
@@ -17,12 +17,21 @@
 </template>
 
 <script>
+import {parseTime} from '@/utils';
 export default {
     name: 'mail-item',
     props: {
         data: {
             type: Object,
             required: true
+        },
+    },
+    computed: {
+        /**
+         * 上次在线时间转化
+        */
+        lastOnlineTime() {
+            return parseTime(this.data.last_online_time);
         }
     }
 }
@@ -53,6 +62,9 @@ export default {
             vertical-align center
             white-space nowrap
             over-ellipsis()
+            flex 1
         .mail-item-info-header
             margin-bottom 3px
+        .mail-item-last-online-time
+            flex 2
 </style>

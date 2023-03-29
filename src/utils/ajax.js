@@ -7,7 +7,7 @@ import { Message } from 'element-ui';
 // 1. 创建 axios 实例，设置超时时间和基础路径
 const service = axios.create({
     baseURL: 'http://localhost:3000',
-    timeout: 5000
+    timeout: 10000
 });
 
 // 2. 创建一个请求池，一个请求不能发送两次

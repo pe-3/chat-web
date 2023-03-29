@@ -5,7 +5,6 @@
             transform: `translate(0,${offset})`,
             padding: `0 ${pl}`
         }"
-
     >
         <div 
             class="line"
@@ -35,6 +34,9 @@ export default {
         },
         lineColor: {
             type: String
+        },
+        color: {
+            type: String
         }
     }
 }
@@ -55,7 +57,7 @@ export default {
         position absolute
         absolute-center true
         padding 0 10px
-        color #ddd
+        color #999
         font-size 12px
 
 </style>

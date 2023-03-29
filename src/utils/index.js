@@ -79,3 +79,48 @@ export function addQuery(rawUrl, urlParams = {}) {
 
     return `${path}${newQueryStr ? '?' : ''}${newQueryStr}${hash ? '#' : ''}${hash}`;
 }
+
+export function getQuery() {
+    return qs.parse(window.location.search.slice(1));
+}
+
+/**
+ * 拼接 url query
+ *
+ * @param {Object} urlParams 参数对下
+ * @return {string} 拼接过的 url string
+ */
+export function setQuery(urlParams) {
+    let query = getQuery();
+
+    let newQuery = {
+        ...query,
+        ...urlParams
+    };
+
+    return qs.stringify(newQuery);
+}
+
+/**
+ * 解析时间戳
+ */
+
+export function parseTime(inputTime) {
+    const timeStamp = Number(inputTime);
+    const now = Date.now();
+    const time = new Date(timeStamp);
+    if (now - timeStamp > 1000 * 60 * 60 * 12 * 365) {
+        return '一年前';
+    }
+    else if (now - timeStamp > 1000 * 60 * 60 * 12 * 7) {
+        return '七天前';
+    }
+    else if (now - timeStamp < 1000 * 60 * 60 * 12) {
+        const hour = time.getHours();
+        const minutes = time.getMinutes();
+        return `${hour}: ${minutes}`;
+    }
+    const month = time.getMonth() + 1;
+    const date = time.getDate();
+    return `${month}月${date}号`;
+}
