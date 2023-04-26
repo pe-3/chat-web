@@ -1,57 +1,59 @@
 <template>
-    <div class="mail-add">
-        <div class="mail-add-header">
-            <te-back/> 
-            <div class="mail-add-switcher">
-                <span 
-                    :class="{['add-switch-select']: swith === 'people'}"
-                    @click="swith = 'people'"
-                >
-                    找人
-                </span>
-                <span
-                    :class="{['add-switch-select']: swith === 'group'}"
-                    @click="swith = 'group'"
-                >
-                    找群
-                </span>
-            </div>
-        </div>
-        <div class="mail-add-search">
-            <te-search
-                :placeholder="`输入 ${swith === 'people' ? 'TE号/邮箱/昵称' : '群号/群名称'} 以查找`"
-                v-model="search"
-            />
-            <el-button 
-                type="primary" 
-                size="mini" 
-                round 
-                :disabled="!search"
-                @click="_findUser"
-            >查找</el-button>
-        </div>
-        <div class="mail-add-list">
-            <add-fri-item 
-                v-for="(user, index) in list"
-                :key="index"
-                :data="user"
-            />
-            <line-text
-                pl="10px"
-                pr="10px"
-                line-color="#efefef"
-            >
-                到底了
-            </line-text>
-        </div>
+  <div class="mail-add">
+    <div class="mail-add-header">
+      <te-back /> 
+      <div class="mail-add-switcher">
+        <span 
+          :class="{['add-switch-select']: swith === 'people'}"
+          @click="swith = 'people'"
+        >
+          找人
+        </span>
+        <span
+          :class="{['add-switch-select']: swith === 'group'}"
+          @click="swith = 'group'"
+        >
+          找群
+        </span>
+      </div>
     </div>
+    <div class="mail-add-search">
+      <te-search
+        v-model="search"
+        :placeholder="`输入 ${swith === 'people' ? 'TE号/邮箱/昵称' : '群号/群名称'} 以查找`"
+      />
+      <el-button 
+        type="primary" 
+        size="mini" 
+        round 
+        :disabled="!search"
+        @click="_findUser"
+      >
+        查找
+      </el-button>
+    </div>
+    <div class="mail-add-list">
+      <add-fri-item 
+        v-for="(user, index) in list"
+        :key="index"
+        :data="user"
+      />
+      <line-text
+        pl="10px"
+        pr="10px"
+        line-color="#efefef"
+      >
+        到底了
+      </line-text>
+    </div>
+  </div>
 </template>
 
 <script>
 import addFriItem from '@/components/mail/addFriItem.vue';
 import { findUser } from '@/request/user';
 export default {
-    name: 'mail-add',
+    name: 'MailAdd',
     components: {
         addFriItem
     },

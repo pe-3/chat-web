@@ -1,32 +1,35 @@
 <template>
-    <div>
-        <te-fold 
-            @toggle="showList"
-        >
-            好友申请
-        </te-fold>
-        <div class="mail-item-list" v-if="show">
-            <load-area
-                :load="{
-                    pageLoading,
-                    pageSuccess,
-                    pageInited,
-                    pageFail
-                }"
-                :page-empty="!list.length"
-                empty-text="暂无好友申请"
-            >
-                <agree-item
-                    v-for="(fri, index) in list"
-                    :data="fri"
-                    :key="fri.username"
-                    :class="{['selected-item']: judgeSelect(index, 'newFri')}"
-                    @click="select(index, 'newFri', fri)"
-                    @agree-item-agree="agree"
-                />
-            </load-area>
-        </div>
+  <div>
+    <te-fold 
+      @toggle="showList"
+    >
+      好友申请
+    </te-fold>
+    <div
+      v-if="show"
+      class="mail-item-list"
+    >
+      <load-area
+        :load="{
+          pageLoading,
+          pageSuccess,
+          pageInited,
+          pageFail
+        }"
+        :page-empty="!list.length"
+        empty-text="暂无好友申请"
+      >
+        <agree-item
+          v-for="(fri, index) in list"
+          :key="fri.username"
+          :data="fri"
+          :class="{['selected-item']: judgeSelect(index, 'newFri')}"
+          @click="select(index, 'newFri', fri)"
+          @agree-item-agree="agree"
+        />
+      </load-area>
     </div>
+  </div>
 </template>
 
 <script>
@@ -35,11 +38,11 @@ import agreeItem from '@/components/mail/agreeItem.vue';
 import {getNewFriendList} from '@/request/friend';
     
 export default {
-    name: 'agree-list',
-    mixins: [pageMixin],
+    name: 'AgreeList',
     components: {
         agreeItem
     },
+    mixins: [pageMixin],
     props: {
         judgeSelect: {
             type: Function,

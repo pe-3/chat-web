@@ -1,31 +1,34 @@
 <template>
-    <div>
-        <te-fold 
-            @toggle="showList"
-        >
-            联系人
-        </te-fold>
-        <div class="mail-item-list" v-if="show">
-            <load-area
-                :load="{
-                    pageLoading,
-                    pageSuccess,
-                    pageInited,
-                    pageFail
-                }"
-                :page-empty="!list.length"
-                empty-text="暂无好友"
-            >
-                <mail-item
-                    v-for="(fri, index) in list"
-                    :data="fri"
-                    :key="fri.username"
-                    :class="{['selected-item']: judgeSelect(index, 'newFri')}"
-                    @click="select(index, 'newFri', fri)"
-                />
-            </load-area>
-        </div>
+  <div>
+    <te-fold 
+      @toggle="showList"
+    >
+      联系人
+    </te-fold>
+    <div
+      v-if="show"
+      class="mail-item-list"
+    >
+      <load-area
+        :load="{
+          pageLoading,
+          pageSuccess,
+          pageInited,
+          pageFail
+        }"
+        :page-empty="!list.length"
+        empty-text="暂无好友"
+      >
+        <mail-item
+          v-for="(fri, index) in list"
+          :key="fri.username"
+          :data="fri"
+          :class="{['selected-item']: judgeSelect(index, 'newFri')}"
+          @click="select(index, 'newFri', fri)"
+        />
+      </load-area>
     </div>
+  </div>
 </template>
 
 <script>
@@ -34,11 +37,11 @@ import mailItem from '@/components/mail/mailItem.vue';
 import {getFriendList} from '@/request/friend';
     
 export default {
-    name: 'agree-list',
-    mixins: [pageMixin],
+    name: 'AgreeList',
     components: {
         mailItem
     },
+    mixins: [pageMixin],
     props: {
         judgeSelect: {
             type: Function,
@@ -54,6 +57,9 @@ export default {
             show: false,
             list: []
         }
+    },
+    created() {
+        this.$root.$on('firend-list-agree', this.agreeFri);
     },
     methods: {
         showList($event) {
@@ -76,9 +82,6 @@ export default {
             console.log(fri);
             this.list.push(fri);
         }
-    },
-    created() {
-        this.$root.$on('firend-list-agree', this.agreeFri);
     }
 }
 </script>

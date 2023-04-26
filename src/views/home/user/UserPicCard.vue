@@ -1,34 +1,36 @@
 <template>
-    <div 
-        class="user-index-card"
-        :style="{
-            backgroundImage:`url(${user.personal_back})`
-        }"
-    >
-        <div class="user-index-detail">
-            <te-avatar 
-                :src="user.avatar || DEFAULT_AVATAR"
-                size="100px"
-                :upload="canUpload"
-            />
-            <div class="user-index-info">
-                <div class="user-index-name">{{user.nickname}}</div>
-            </div>
+  <div 
+    class="user-index-card"
+    :style="{
+      backgroundImage:`url(${user.personal_back})`
+    }"
+  >
+    <div class="user-index-detail">
+      <te-avatar 
+        :src="user.avatar || DEFAULT_AVATAR"
+        size="100px"
+        :upload="canUpload"
+      />
+      <div class="user-index-info">
+        <div class="user-index-name">
+          {{ user.nickname }}
         </div>
-        <div 
-            v-if="canUpload"
-            class="user-index-upload-back" 
-            @click="selectPerBack"
-        >
-            <input 
-                type="file" 
-                ref="per_back_upload"
-                accept=".png,.jpg,.jpeg,.webp,.svg"
-                @input="getPerBack"
-            />
-            <i class="el-icon-upload2"></i>
-        </div>
+      </div>
     </div>
+    <div 
+      v-if="canUpload"
+      class="user-index-upload-back" 
+      @click="selectPerBack"
+    >
+      <input 
+        ref="per_back_upload" 
+        type="file"
+        accept=".png,.jpg,.jpeg,.webp,.svg"
+        @input="getPerBack"
+      >
+      <i class="el-icon-upload2" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,7 +39,7 @@ import {updateUserInfo} from '@/request/user';
 import store from '@/store';
 import { mapMutations } from 'vuex';
 export default {
-    name: 'user-pic-card',
+    name: 'UserPicCard',
     props: {
         user: {
             type: Object,

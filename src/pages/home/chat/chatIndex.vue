@@ -1,46 +1,46 @@
 <template>
-    <div class="chat-index">
-        <div class="chat-list">
-            <div class="chat-list-header">
-                <te-search/>
-                <te-gap/>
-                <te-add/>
-            </div>
-            <div class="chat-list-wrapper">
-                <load-area
-                    :page-empty="Object.keys(mychats).length === 0"
-                    :load="{
-                        pageLoading,
-                        pageSuccess,
-                        pageInited,
-                        pageFail
-                    }"
-                >
-                    <chat-item
-                        v-for="(data, index) in mychats"
-                        :key="index"
-                        :data="data"
-                        :class="{['selected-item']: curChat.username === data.username}"
-                        @click="selectChat(data)"
-                    />
-                </load-area>
-            </div>
-        </div>
-        <div class="chat-dialog">
-            <load-area
-                :page-empty="JSON.stringify(this.curChat) === '{}'"
-                :load="{
-                    pageLoading,
-                    pageSuccess,
-                    pageInited,
-                    pageFail
-                }"
-            >
-                <dialog-header :data="curChat"/>
-                <dialog-msgs :data="curChat"/>
-            </load-area>
-        </div>
+  <div class="chat-index">
+    <div class="chat-list">
+      <div class="chat-list-header">
+        <te-search />
+        <te-gap />
+        <te-add />
+      </div>
+      <div class="chat-list-wrapper">
+        <load-area
+          :page-empty="Object.keys(mychats).length === 0"
+          :load="{
+            pageLoading,
+            pageSuccess,
+            pageInited,
+            pageFail
+          }"
+        >
+          <chat-item
+            v-for="(data, index) in mychats"
+            :key="index"
+            :data="data"
+            :class="{['selected-item']: curChat.username === data.username}"
+            @click="selectChat(data)"
+          />
+        </load-area>
+      </div>
     </div>
+    <div class="chat-dialog">
+      <load-area
+        :page-empty="JSON.stringify(curChat) === '{}'"
+        :load="{
+          pageLoading,
+          pageSuccess,
+          pageInited,
+          pageFail
+        }"
+      >
+        <dialog-header :data="curChat" />
+        <dialog-msgs :data="curChat" />
+      </load-area>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -54,12 +54,17 @@ import { $bus } from '@/store';
 import store from '@/store';
 // import { getQuery } from '@/utils';
 export default {
-    name: 'chat-index',
-    mixins: [pageMixin],
+    name: 'ChatIndex',
     components: {
         chatItem,
         dialogHeader,
         dialogMsgs
+    },
+    mixins: [pageMixin],
+    data() {
+        return {
+            curChat: {}
+        }
     },
     computed: {
         ...mapState('chat', ['chats']),
@@ -74,10 +79,30 @@ export default {
             }, {});
         }
     },
-    data() {
-        return {
-            curChat: {}
+    watch: {
+        '$route.query'() {
+            this.selectChatByUrl();
         }
+    },
+    created() {
+        this.selectChatByUrl();
+        console.log(this.$router);
+        $bus.$on('chat-index-chat-change', (chatwith) => {
+            console.log(window.location.href.indexOf('/chat'));
+            if(window.location.href.indexOf('/chat') === -1) {
+                console.log('good');
+                return this.jump('/chat', {
+                    chatwith
+                });
+            }
+            if(getQuery().chatwith === chatwith) return;
+            this.queryChange({chatwith});
+            this.curChat = this.mychats[chatwith];
+        });
+        $bus.$on('chat-index-select-chat', () => {
+            this.selectChatByUrl();
+        });
+        this.setPageSuccess();
     },
     methods: {
         selectChatByUrl() {
@@ -101,31 +126,6 @@ export default {
         getKey(chatwith) {
             return `${store.getters.username}-${chatwith}`;
         }  
-    },
-    created() {
-        this.selectChatByUrl();
-        console.log(this.$router);
-        $bus.$on('chat-index-chat-change', (chatwith) => {
-            console.log(window.location.href.indexOf('/chat'));
-            if(window.location.href.indexOf('/chat') === -1) {
-                console.log('good');
-                return this.jump('/chat', {
-                    chatwith
-                });
-            }
-            if(getQuery().chatwith === chatwith) return;
-            this.queryChange({chatwith});
-            this.curChat = this.mychats[chatwith];
-        });
-        $bus.$on('chat-index-select-chat', () => {
-            this.selectChatByUrl();
-        });
-        this.setPageSuccess();
-    },
-    watch: {
-        '$route.query'() {
-            this.selectChatByUrl();
-        }
     }
 }
 </script>

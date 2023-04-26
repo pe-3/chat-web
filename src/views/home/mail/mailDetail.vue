@@ -1,47 +1,62 @@
 <template>
-    <load-area 
-        :load="{
-            pageLoading,
-            pageSuccess,
-            pageInited,
-            pageFail
-        }"
-        :page-empty="isUserEmpty"
-        empty-text="暂无选择"
-    >
-        <div class="mail-detail">
-            <user-pic-card
-                :user="selectFriend"
-            />
-            <user-info-card
-                :user="selectFriend"
-            />
-            <div class="bottom" v-if="type === 'friend'">
-                <el-button 
-                    icon="el-icon-chat-line-round"
-                    size="medium"
-                    @click="initAChat"
-                >发起对话</el-button>
-                <el-popover 
-                    trigger="click"
-                    placement="right-end"
-                >
-                    <template>
-                        <div class="more-operate">
-                            <el-button type="info">拉黑</el-button>
-                            <el-button type="danger">删除</el-button>
-                        </div>
-                    </template>
-                    <i class="el-icon-more" slot="reference"></i>
-                </el-popover>
-            </div>
-            <div class="bottom" v-else>
-                <el-button
-                    icon="el-icon-plus"
-                >添加好友</el-button>
-            </div>
-        </div>
-    </load-area>
+  <load-area 
+    :load="{
+      pageLoading,
+      pageSuccess,
+      pageInited,
+      pageFail
+    }"
+    :page-empty="isUserEmpty"
+    empty-text="暂无选择"
+  >
+    <div class="mail-detail">
+      <user-pic-card
+        :user="selectFriend"
+      />
+      <user-info-card
+        :user="selectFriend"
+      />
+      <div
+        v-if="type === 'friend'"
+        class="bottom"
+      >
+        <el-button 
+          icon="el-icon-chat-line-round"
+          size="medium"
+          @click="initAChat"
+        >
+          发起对话
+        </el-button>
+        <el-popover 
+          trigger="click"
+          placement="right-end"
+        >
+          <div class="more-operate">
+            <el-button type="info">
+              拉黑
+            </el-button>
+            <el-button type="danger">
+              删除
+            </el-button>
+          </div>
+          <i
+            slot="reference"
+            class="el-icon-more"
+          />
+        </el-popover>
+      </div>
+      <div
+        v-else
+        class="bottom"
+      >
+        <el-button
+          icon="el-icon-plus"
+        >
+          添加好友
+        </el-button>
+      </div>
+    </div>
+  </load-area>
 </template>
 
 <script>
@@ -51,12 +66,12 @@ import UserInfoCard from '../user/UserInfoCard.vue';
 import { mapMutations, mapState } from 'vuex';
 import { $bus } from '@/store';
 export default {
-    name: 'mail-detail',
-    mixins: [page],
+    name: 'MailDetail',
     components: {
         UserPicCard,
         UserInfoCard
     },
+    mixins: [page],
     props: {
         selectFriend: {
             type: Object,

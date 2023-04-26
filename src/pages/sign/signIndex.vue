@@ -1,29 +1,35 @@
 <template>
-    <div class="sign-index">
-        <header>
-            <te-logo/>
-        </header>
-        <main>
-            <transition
-                enter-class="none"
-                enter-to-class="animate__jackInTheBox"
-                leave-to-class="none"
-                enter-active-class="animate__animated"
-            >
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
-            </transition>
-        </main>
-        <footer>
-            <!-- 页脚 -->
-        </footer>
-    </div>
+  <div class="sign-index">
+    <header>
+      <te-logo />
+    </header>
+    <main>
+      <transition
+        enter-class="none"
+        enter-to-class="animate__jackInTheBox"
+        leave-to-class="none"
+        enter-active-class="animate__animated"
+      >
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </transition>
+    </main>
+    <footer>
+      <!-- 页脚 -->
+    </footer>
+  </div>
 </template>
 
 <script>
+
+/**
+ * @author guoxudong04 <guoxudong04@baidu.com>
+ * @file 开始页 (默认登录)
+ * */
+
 export default {
-    name: 'sign-index'
+    name: 'SignIndex'
 }
 </script>
 

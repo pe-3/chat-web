@@ -1,36 +1,38 @@
 <template>
-    <div 
-        class="user-index"
-    >  
-        <div class="user-index-content">
-            <user-pic-card 
-                :user="user"
-                can-upload
-            />
-            <div class="user-index-more">
-                <user-info-card
-                    :user="user"
-                />
-                <!-- 编辑信息 -->
-                <el-button 
-                    icon="el-icon-edit" 
-                    class="user-info-edit-btn"
-                    size="medium"
-                    @click="jump('./infoEdit')"
-                >编辑信息</el-button>
-                <!-- 信息编辑页 -->
-                <transition
-                    enter-class="none"
-                    enter-to-class="animate__slideInRight"
-                    leave-to-class="animate__slideOutRight"
-                    leave-active-class="animate__animated"
-                    enter-active-class="animate__animated"
-                >
-                    <router-view></router-view>
-                </transition>
-            </div>
-        </div>
+  <div 
+    class="user-index"
+  >  
+    <div class="user-index-content">
+      <user-pic-card 
+        :user="user"
+        can-upload
+      />
+      <div class="user-index-more">
+        <user-info-card
+          :user="user"
+        />
+        <!-- 编辑信息 -->
+        <el-button 
+          icon="el-icon-edit" 
+          class="user-info-edit-btn"
+          size="medium"
+          @click="jump('./infoEdit')"
+        >
+          编辑信息
+        </el-button>
+        <!-- 信息编辑页 -->
+        <transition
+          enter-class="none"
+          enter-to-class="animate__slideInRight"
+          leave-to-class="animate__slideOutRight"
+          leave-active-class="animate__animated"
+          enter-active-class="animate__animated"
+        >
+          <router-view />
+        </transition>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -40,7 +42,7 @@ import UserPicCard from '@/views/home/user/UserPicCard';
 import UserInfoCard from '@/views/home/user/UserInfoCard.vue';
 
 export default {
-    name: 'user-index',
+    name: 'UserIndex',
     components: {
         UserPicCard,
         UserInfoCard

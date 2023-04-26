@@ -1,12 +1,12 @@
 <template>
-    <div>
-        搜索页
-    </div>
+  <div>
+    搜索页
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'search-index'
+    name: 'SearchIndex'
 }
 </script>
 

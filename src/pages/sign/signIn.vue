@@ -1,43 +1,52 @@
 <!-- 登录 -->
 <template>
-    <div class="sign-box">
-        <h3>欢迎使用 chat</h3>
-        <el-input 
-            placeholder="请输入你的账号"
-            v-model="username"
-        />
-        <el-input 
-            placeholder="请输入你的密码"
-            type="password"
-            v-model="password"
-        />
-        <p class="keep">
-            <span>
-                <el-checkbox 
-                    @change="setLoginLess($event)"
-                    :checked="loginless"
-                /> 
-                7天免登录
-            </span>
-        </p>
-        <el-button 
-            type="primary" 
-            @click="_signin"
-            :disabled="isNull"
-        >
-            登录
-        </el-button>
-        <line-text offset="80px">
-            <span class="link" @click="jump('/sign/signUp')">去注册</span>
-        </line-text>
-    </div>
+  <div class="sign-box">
+    <h3>欢迎使用 chat</h3>
+    <el-input 
+      v-model="username"
+      placeholder="请输入你的账号"
+    />
+    <el-input 
+      v-model="password"
+      placeholder="请输入你的密码"
+      type="password"
+    />
+    <p class="keep">
+      <span>
+        <el-checkbox 
+          :checked="loginless"
+          @change="setLoginLess($event)"
+        /> 
+        7天免登录
+      </span>
+    </p>
+    <el-button 
+      type="primary" 
+      :disabled="isNull"
+      @click="_signin"
+    >
+      登录
+    </el-button>
+    <line-text offset="80px">
+      <span
+        class="link"
+        @click="jump('/sign/signUp')"
+      >去注册</span>
+    </line-text>
+  </div>
 </template>
 
 <script>
+/**
+ * @author guoxudong04 <guoxudong04@baidu.com>
+ * @file 登陆页
+ * TODO: 后续可以在本页添加炫酷的宣传动画，增加吸引力
+ * */
+
 import { signin } from '@/request/sign';
 import { mapMutations, mapState } from 'vuex';
 export default {
-    name: 'sign-in',
+    name: 'SignIn',
     data() {
         return {
             username: '',

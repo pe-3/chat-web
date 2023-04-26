@@ -1,12 +1,12 @@
 <template>
-    <div class="notfund">
-        404
-    </div>
+  <div class="notfund">
+    404
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'notfund-index'
+    name: 'NotfundIndex'
 }
 </script>
 

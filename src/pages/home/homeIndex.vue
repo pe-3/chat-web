@@ -1,80 +1,91 @@
 <template>
-    <div 
-        v-loading="loading"
-        element-loading-text="拼命加载中"
-        element-loading-spinner="el-icon-loading"
-        class="home-index"
-    >
-        <!-- 左菜单列表 -->
-        <div class="left-menu">
-            <!-- 头像，进入主页 -->
-            <el-popover
-                placement="right-start"
-                :offset="10"
-                :visible-arrow="false"
-                v-model="showPopver"
+  <div 
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    class="home-index"
+  >
+    <!-- 左菜单列表 -->
+    <div class="left-menu">
+      <!-- 头像，进入主页 -->
+      <el-popover
+        v-model="showPopver"
+        placement="right-start"
+        :offset="10"
+        :visible-arrow="false"
+      >
+        <te-avatar 
+          slot="reference"
+          size="60px"
+          :src="user.avatar || DEFAULT_AVATAR"
+        />
+        <template slot="default">
+          <div class="setting-card">
+            <div 
+              class="user-card"
+              :style="{
+                backgroundImage: user.personal_back ? `url(${user.personal_back})` : 'linear-gradient(-150deg, #222222 15%, #373737 70%, #3c4859 94%)'
+              }"
             >
-                <te-avatar 
-                    size="60px"
-                    :src="user.avatar || DEFAULT_AVATAR"
-                    slot="reference"
-                />
-                <template slot="default">
-                    <div class="setting-card">
-                        <div 
-                            class="user-card"
-                            :style="{
-                                backgroundImage: user.personal_back ? `url(${user.personal_back})` : 'linear-gradient(-150deg, #222222 15%, #373737 70%, #3c4859 94%)'
-                            }"
-                        >
-                            <te-avatar 
-                                size="80px"
-                                :src="user.avatar || DEFAULT_AVATAR"
-                                upload
-                            />
-                            <div class="user-info">
-                                <div class="user-name">{{user.nickname}}</div>
-                                <div class="user-intro">{{user.intro}}</div>
-                            </div>
-                        </div>
-                        <div class="setting-list">
-                            <te-gap orient="height"></te-gap>
-                            <setting-item @click="jump('/user');showPopver = false;">个人中心</setting-item>
-                            <setting-item>设置</setting-item>
-                            <setting-item>我的二维码和链接</setting-item>
-                            <te-gap orient="height" class="divide-line"></te-gap>
-                            <setting-item @click="logOut">退出登录</setting-item>
-                        </div>
-                    </div>                    
-                </template>
-            </el-popover>
+              <te-avatar 
+                size="80px"
+                :src="user.avatar || DEFAULT_AVATAR"
+                upload
+              />
+              <div class="user-info">
+                <div class="user-name">
+                  {{ user.nickname }}
+                </div>
+                <div class="user-intro">
+                  {{ user.intro }}
+                </div>
+              </div>
+            </div>
+            <div class="setting-list">
+              <te-gap orient="height" />
+              <setting-item @click="jump('/user');showPopver = false;">
+                个人中心
+              </setting-item>
+              <setting-item>设置</setting-item>
+              <setting-item>我的二维码和链接</setting-item>
+              <te-gap
+                orient="height"
+                class="divide-line"
+              />
+              <setting-item @click="logOut">
+                退出登录
+              </setting-item>
+            </div>
+          </div>                    
+        </template>
+      </el-popover>
 
-            <!-- 菜单列表，进入不同页 -->
-            <div class="menu-list">
-                <te-icon 
-                    v-for="nav,index in LEFT_NAVS"
-                    :key="index"
-                    :icon="nav.icon"
-                    :class="{
-                        selcted: navIndex === index,
-                        ['menu-icon']: true
-                    }"
-                    @click="navSelect(index)"
-                />
-            </div>
-            <div class="menu-list bottom-menu">
-                <te-icon 
-                    class="menu-icon"
-                    icon="el-icon-more"
-                />
-            </div>
-        </div>
-        <div class="main">
-            <Keep-alive>
-                <router-view></router-view>
-            </Keep-alive>
-        </div>
+      <!-- 菜单列表，进入不同页 -->
+      <div class="menu-list">
+        <te-icon 
+          v-for="nav,index in LEFT_NAVS"
+          :key="index"
+          :icon="nav.icon"
+          :class="{
+            selcted: navIndex === index,
+            ['menu-icon']: true
+          }"
+          @click="navSelect(index)"
+        />
+      </div>
+      <div class="menu-list bottom-menu">
+        <te-icon 
+          class="menu-icon"
+          icon="el-icon-more"
+        />
+      </div>
     </div>
+    <div class="main">
+      <Keep-alive>
+        <router-view />
+      </Keep-alive>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -83,7 +94,7 @@ import {LEFT_NAVS} from '../../config/page'
 import { mapActions, mapMutations, mapState } from 'vuex';
 import { $bus } from '@/store';
 export default {
-    name: 'home-index',
+    name: 'HomeIndex',
     data() {
         return {
             LEFT_NAVS,

@@ -1,32 +1,34 @@
 <template>
-    <div>
-        <te-fold 
-            @toggle="showList"
-        >
-            我的群组
-        </te-fold>
-        <div class="mail-item-list" v-if="show">
-            <load-area
-                :load="{
-                    pageLoading,
-                    pageSuccess,
-                    pageInited,
-                    pageFail
-                }"
-                :page-empty="!list.length"
-                empty-text="暂无群组"
-            >
-                <mail-item
-                    v-for="(group, index) in  list"
-                    :key="index"
-                    :data="group"
-                    @click="select(index, 'group')"
-                    :class="{['selected-item']: judgeSelect(index, 'group', group)}"       
-                />
-            </load-area>
-        </div>
+  <div>
+    <te-fold 
+      @toggle="showList"
+    >
+      我的群组
+    </te-fold>
+    <div
+      v-if="show"
+      class="mail-item-list"
+    >
+      <load-area
+        :load="{
+          pageLoading,
+          pageSuccess,
+          pageInited,
+          pageFail
+        }"
+        :page-empty="!list.length"
+        empty-text="暂无群组"
+      >
+        <mail-item
+          v-for="(group, index) in list"
+          :key="index"
+          :data="group"
+          :class="{['selected-item']: judgeSelect(index, 'group', group)}"
+          @click="select(index, 'group')"       
+        />
+      </load-area>
     </div>
-
+  </div>
 </template>
 
 
@@ -38,11 +40,11 @@ const getGroupList = () => new Promise((resolve) => setTimeout(() => {
 }, 1000))
     
 export default {
-    name: 'agree-list',
-    mixins: [pageMixin],
+    name: 'AgreeList',
     components: {
         mailItem
     },
+    mixins: [pageMixin],
     props: {
         judgeSelect: {
             type: Function,

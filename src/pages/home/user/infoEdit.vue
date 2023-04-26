@@ -1,114 +1,120 @@
 <template>
-    <div class="info-edit">
-        <div class="info-edit-header">
-            <te-back color="black"/> 
-            <span>
-                修改个人信息
-            </span>
-        </div>
-        <div class="info-edit-main">
-            <!-- 个人信息 -->
-            <div class="info-edit-item">
-                <span>昵称</span>
-                <el-input 
-                    size="mini"
-                    :style="{width:'172px'}"
-                    v-model="nickname"
-                />
-            </div>
-            <div class="info-edit-item">
-                <span>性别</span>
-                <el-select 
-                    size="mini" 
-                    v-model="gender"
-                >
-                    <el-option
-                        label="男"
-                        value="male"
-                    />
-                    <el-option
-                        label="女"
-                        value="female"
-                    />
-                </el-select>
-            </div>
-            <div class="info-edit-item">
-                <span>年龄</span>
-                <el-input 
-                    type="number" 
-                    :min="10"
-                    :max="200"
-                    size="mini"
-                    v-model="age"
-                    :style="{width:'4rem'}"
-                />
-            </div>
-            <div class="info-edit-item">
-                <span>生日</span>
-                <el-input 
-                    type="number" 
-                    :min="1"
-                    :max="12"
-                    size="mini"
-                    v-model="birthday[0]"
-                    :style="{width:'4rem'}"
-                /> <i>月</i>
-                <el-input 
-                    type="number" 
-                    :min="1"
-                    :max="31"
-                    size="mini"
-                    v-model="birthday[1]"
-                    :style="{width:'4rem'}"
-                /> <i>日</i>
-            </div>
-            <te-gap orient="height" class="divide-line"></te-gap>
-            <!-- 账号信息 -->
-            <div class="info-edit-item">
-                <span>邮箱</span>
-                <el-input
-                    type="email"
-                    size="mini"
-                    v-model="mail"
-                />
-            </div>
-            <div class="info-edit-item">
-                <span>电话</span>
-                <el-input 
-                    size="mini"
-                    v-model="phone"
-                />
-            </div>
-            <te-gap orient="height" class="divide-line"></te-gap>
-            <!-- 账号信息 -->
-            <div class="info-edit-item">
-                <span>地区</span>
-                <el-input 
-                    size="mini"
-                    v-model="site"
-                />
-            </div>
-            <!-- 简介 -->
-            <div class="info-edit-item info-edit-item-intro">
-                <span>简介</span>
-                <el-input 
-                    size="mini"
-                    type="textarea"
-                    :autosize="false"
-                    :rows="3"
-                    v-model="intro"
-                />
-            </div>
-            <el-button 
-                size="mini" 
-                type="primary" 
-                class="info-sub-btn"
-                @click="_updateUserInfo"
-            >
-                提交
-            </el-button>
-        </div>
+  <div class="info-edit">
+    <div class="info-edit-header">
+      <te-back color="black" /> 
+      <span>
+        修改个人信息
+      </span>
     </div>
+    <div class="info-edit-main">
+      <!-- 个人信息 -->
+      <div class="info-edit-item">
+        <span>昵称</span>
+        <el-input 
+          v-model="nickname"
+          size="mini"
+          :style="{width:'172px'}"
+        />
+      </div>
+      <div class="info-edit-item">
+        <span>性别</span>
+        <el-select 
+          v-model="gender" 
+          size="mini"
+        >
+          <el-option
+            label="男"
+            value="male"
+          />
+          <el-option
+            label="女"
+            value="female"
+          />
+        </el-select>
+      </div>
+      <div class="info-edit-item">
+        <span>年龄</span>
+        <el-input 
+          v-model="age" 
+          type="number"
+          :min="10"
+          :max="200"
+          size="mini"
+          :style="{width:'4rem'}"
+        />
+      </div>
+      <div class="info-edit-item">
+        <span>生日</span>
+        <el-input 
+          v-model="birthday[0]" 
+          type="number"
+          :min="1"
+          :max="12"
+          size="mini"
+          :style="{width:'4rem'}"
+        /> <i>月</i>
+        <el-input 
+          v-model="birthday[1]" 
+          type="number"
+          :min="1"
+          :max="31"
+          size="mini"
+          :style="{width:'4rem'}"
+        /> <i>日</i>
+      </div>
+      <te-gap
+        orient="height"
+        class="divide-line"
+      />
+      <!-- 账号信息 -->
+      <div class="info-edit-item">
+        <span>邮箱</span>
+        <el-input
+          v-model="mail"
+          type="email"
+          size="mini"
+        />
+      </div>
+      <div class="info-edit-item">
+        <span>电话</span>
+        <el-input 
+          v-model="phone"
+          size="mini"
+        />
+      </div>
+      <te-gap
+        orient="height"
+        class="divide-line"
+      />
+      <!-- 账号信息 -->
+      <div class="info-edit-item">
+        <span>地区</span>
+        <el-input 
+          v-model="site"
+          size="mini"
+        />
+      </div>
+      <!-- 简介 -->
+      <div class="info-edit-item info-edit-item-intro">
+        <span>简介</span>
+        <el-input 
+          v-model="intro"
+          size="mini"
+          type="textarea"
+          :autosize="false"
+          :rows="3"
+        />
+      </div>
+      <el-button 
+        size="mini" 
+        type="primary" 
+        class="info-sub-btn"
+        @click="_updateUserInfo"
+      >
+        提交
+      </el-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -119,7 +125,7 @@ import {USER_PROPS_WRITEABLE} from '@/config/user';
 import {updateUserInfo} from '@/request/user';
 
 export default {
-    name: 'info-edit',
+    name: 'InfoEdit',
     data() {
         const storeUser = {...store.getters.user};
 
