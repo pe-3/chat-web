@@ -1,3 +1,6 @@
+/**
+ * @file 对其他用户信息进行存储，避免对用户的频繁请求
+ */
 export default {
     namespaced: true,
     state: {

@@ -52,7 +52,6 @@ import {getMailCode} from '@/request/mail';
 import {signup} from '@/request/sign';
 
 /**
- * @author guoxudong04 <guoxudong04@baidu.com> [guoxudong04，这个 git 账号是在百度的时候]
  * @file 注册页
  * 
  * 不依赖其他页 x

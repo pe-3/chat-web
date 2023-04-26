@@ -24,7 +24,6 @@
 <script>
 
 /**
- * @author guoxudong04 <guoxudong04@baidu.com>
  * @file 开始页 (默认登录)
  * */
 

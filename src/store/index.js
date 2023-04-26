@@ -1,5 +1,5 @@
 /**
- * 集中状态管理文件，暴露 store
+ * @file 集中状态管理文件，暴露 store，处理缓存
  */
 
 // 1. 引入并使用 Vuex
@@ -10,7 +10,7 @@ import cache from './cache';
 
 Vue.use(Vuex);
 
-// 2. 引入所有模块
+// 2. 通过 webpack 提供的 context 方法自动引入所有模块
 const getModule = require.context('./modules', false, /.js$/);
 
 const modules = getModule.keys().reduce((modules, path) => {

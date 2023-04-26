@@ -1,52 +1,65 @@
 <template>
-    <div 
-        class="loading-area"
-        :style="{'min-height': minHeight}"
-    >
-        <!-- 1.加载中 -->
-        <template v-if="pageLoading">
-            <div v-if="!$slots.load" class="slot-loading">
-                <!-- 默认加载中 -->
-                <i class="el-icon-loading"></i>
-            </div>
-            <slot v-else name="load"></slot>
-        </template>
-        <!-- 2.加载失败 -->
-        <template v-else-if="pageFail">
-            <div v-if="!$slots.fail">
-                <!-- 默认加载失败 -->
-                <el-empty 
-                    :description="failText ?? '暂无数据'"
-                />
-            </div>
-            <slot v-else name="fail"></slot>
-        </template>
-        <!-- 3.暂无数据 -->
-        <template v-else-if="pageEmpty">
-            <div v-if="!$slots.empty" class="slot-empty">
-                <el-empty 
-                    :description="emptyText ?? '暂无数据'"
-                />
-            </div>
-            <slot v-else name="empty"></slot>
-        </template>
-        <!-- 4.加载成功 -->
-        <template v-else-if="pageSuccess">
-            <slot></slot>
-        </template>
-        
-    </div>
+  <div 
+    class="loading-area"
+    :style="{'min-height': minHeight}"
+  >
+    <!-- 1.加载中 -->
+    <template v-if="pageLoading">
+      <div
+        v-if="!$slots.load"
+        class="slot-loading"
+      >
+        <!-- 默认加载中 -->
+        <i class="el-icon-loading" />
+      </div>
+      <slot
+        v-else
+        name="load"
+      />
+    </template>
+    <!-- 2.加载失败 -->
+    <template v-else-if="pageFail">
+      <div v-if="!$slots.fail">
+        <!-- 默认加载失败 -->
+        <el-empty 
+          :description="failText ?? '暂无数据'"
+        />
+      </div>
+      <slot
+        v-else
+        name="fail"
+      />
+    </template>
+    <!-- 3.暂无数据 -->
+    <template v-else-if="pageEmpty">
+      <div
+        v-if="!$slots.empty"
+        class="slot-empty"
+      >
+        <el-empty 
+          :description="emptyText ?? '暂无数据'"
+        />
+      </div>
+      <slot
+        v-else
+        name="empty"
+      />
+    </template>
+    <!-- 4.加载成功 -->
+    <template v-else-if="pageSuccess">
+      <slot />
+    </template>
+  </div>
 </template>
 
 <script>
 
 /**
  * @file 加油包 -- 加载套件
- * @author guoxudong04@baidu.com
 */
 
 export default {
-    name: 'loading-area',
+    name: 'LoadingArea',
     components: {
     },
     props: {
@@ -97,16 +110,16 @@ export default {
             default: ''
         }
     },
+    data() {
+        return {
+            loadTime: 0
+        }
+    },
     computed: {
         pageLoading() { return this.load.pageLoading },
         pageSuccess() { return this.load.pageSuccess },
         pageFail() { return this.load.pageFail },
         pageInited() { return this.load.pageInited }
-    },
-    data() {
-        return {
-            loadTime: 0
-        }
     }
 }
 </script>

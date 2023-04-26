@@ -38,7 +38,6 @@
 
 <script>
 /**
- * @author guoxudong04 <guoxudong04@baidu.com>
  * @file 登陆页
  * TODO: 后续可以在本页添加炫酷的宣传动画，增加吸引力
  * */

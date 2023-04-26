@@ -1,6 +1,5 @@
 /**
  * @file  异步页面 mixin 方法
- * @author chengong03(chengong03@baidu.com)
  * @date 2019-5-15
  */
 
