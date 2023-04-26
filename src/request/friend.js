@@ -28,6 +28,7 @@ export function getNewFriendList() {
 
 /**
  * 发送好友申请
+ * @param {string} friend 盆友的 用户名(username)
  */
 
 export function addFriend(friend) {
@@ -39,6 +40,7 @@ export function addFriend(friend) {
 
 /**
  * 同意好友申请
+ * @param {string} friend 盆友的 用户名(username)
  */
 
 export function agreeFriend(friend) {

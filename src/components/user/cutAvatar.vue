@@ -1,62 +1,51 @@
 <template>
-    <div class="cut-avatar" ref="">
-        <div 
-            class="cut-curtain"
-        >
-            <el-image
-                :style="{
-                    width: `${width}px`,
-                    top: `${y}px`,
-                    left: `${x}px`
-                }"
-                :src="src"
-                class="preview"
-                draggable="false"
-                ref="imageEl"
-                @mousedown="dragStart"
-                @mouseup="isDraging = false"
-                @mousemove="drag"
-                @mouseleave="isDraging = false"
-            />
-        </div>
-        <el-slider v-model="enlargeTimes" :min="10"></el-slider>
-        <canvas 
-            width="100" 
-            height="100" 
-            ref="cutCanvas"
-            class="cut-canvas"
-        />        
-
+  <div
+    ref=""
+    class="cut-avatar"
+  >
+    <div 
+      class="cut-curtain"
+    >
+      <el-image
+        ref="imageEl"
+        :style="{
+          width: `${width}px`,
+          top: `${y}px`,
+          left: `${x}px`
+        }"
+        :src="src"
+        class="preview"
+        draggable="false"
+        @mousedown="dragStart"
+        @mouseup="isDraging = false"
+        @mousemove="drag"
+        @mouseleave="isDraging = false"
+      />
     </div>
+    <el-slider
+      v-model="enlargeTimes"
+      :min="10"
+    />
+    <canvas 
+      ref="cutCanvas" 
+      width="100" 
+      height="100"
+      class="cut-canvas"
+    />
+  </div>
 </template>
 
 <script>
 import {uploadAvatar} from '@/request/upload'
-import { updateUserInfo } from '@/request/user';
-import { mapMutations } from 'vuex';
+import {updateUserInfo} from '@/request/user';
+import {mapMutations} from 'vuex';
 import store from '@/store';
 export default {
-    name: 'cut-avatar',
+    name: 'CutAvatar',
     props: {
         image: {
             type: File,
-            requried: true,
-        }
-    },
-    computed: {
-        width() {
-            return this.photo.width * this.enlargeTimes / 10;
-        },
-        x() {
-            if(this.draged) {return this.photo.x}
-            return -(this.width / 2 - 150);
-        },
-        y() {
-            if(this.draged) {return this.photo.y}
-            return -(this.width / 2 - 150);
-        },
-        type() {
-            return this.image.type;
+            required: true
         }
     },
     data() {
@@ -76,6 +65,22 @@ export default {
             mouseY: 0,
             initX: 0,
             initY: 0
+        }
+    },
+    computed: {
+        width() {
+            return this.photo.width * this.enlargeTimes / 10;
+        },
+        x() {
+            if(this.draged) {return this.photo.x}
+            return -(this.width / 2 - 150);
+        },
+        y() {
+            if(this.draged) {return this.photo.y}
+            return -(this.width / 2 - 150);
+        },
+        type() {
+            return this.image.type;
         }
     },
     watch: {
@@ -105,6 +110,12 @@ export default {
         if (this.image) {
             reader.readAsDataURL(this.image);
         }
+    },
+    mounted() {
+        this.$on('set-avatar', (cb) => {
+            console.log('执行了吗');
+            this.setAvatar().then(() => cb());
+        });
     },
     methods: {
         drag(event) {
@@ -188,12 +199,6 @@ export default {
                 this.$warn(error.message);
             }
         }
-    },
-    mounted() {
-        this.$on('set-avatar', (cb) => {
-            console.log('执行了吗');
-            this.setAvatar().then(() => cb());
-        });
     }
 }
 </script>

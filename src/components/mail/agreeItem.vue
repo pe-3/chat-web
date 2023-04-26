@@ -1,32 +1,33 @@
 <template>
-    <div class="agree-item">
-        <te-avatar
-            :src="data.avatar"
-            size="60px"
-        />
-        <div class="agree-item-info">
-            <div class="agree-item-info-header flex-between">
-                <div class="agree-item-name">{{data.nickname}}</div>
-            </div>
-            <div class="agree-item-intro">
-                {{data.intro}}
-            </div>   
-            <el-button 
-                class="add-fri-btn"
-                size="mini"
-                @click="_agreeFriend"
-            >
-                    同意
-            </el-button>
-   
+  <div class="agree-item">
+    <te-avatar
+      :src="data.avatar"
+      size="60px"
+    />
+    <div class="agree-item-info">
+      <div class="agree-item-info-header flex-between">
+        <div class="agree-item-name">
+          {{ data.nickname }}
         </div>
+      </div>
+      <div class="agree-item-intro">
+        {{ data.intro }}
+      </div>   
+      <el-button 
+        class="add-fri-btn"
+        size="mini"
+        @click="_agreeFriend"
+      >
+        同意
+      </el-button>
     </div>
+  </div>
 </template>
 
 <script>
 import {agreeFriend} from '@/request/friend'
 export default {
-    name: 'agree-item',
+    name: 'AgreeItem',
     props: {
         data: {
             type: Object,

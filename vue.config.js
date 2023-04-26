@@ -6,6 +6,7 @@ module.exports = defineConfig({
   css: {
     loaderOptions: {
       stylus: {
+        // 引入静态 stylus 文件进行打包
         additionalData: `@import "${path.resolve(__dirname, './src/assets/css/index.styl')}";`
       }
     }
@@ -13,6 +14,7 @@ module.exports = defineConfig({
   configureWebpack: {
     resolve: {
       alias: {
+        // 配置别名
         '@': path.resolve(__dirname, 'src')
       },
       fallback: {
