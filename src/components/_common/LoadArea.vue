@@ -53,15 +53,14 @@
 </template>
 
 <script>
-
 /**
- * @file 加油包 -- 加载套件
+ * @file 加载区域，对加载做的一个封装
+ * @import_num 5
+ * 除了加载成功需要用户传入对应的状态以外，其他加载状态对应都有默认展示的组件，如果用户想自定义，也可以通过 slot 传入。
 */
 
 export default {
-    name: 'LoadingArea',
-    components: {
-    },
+    name: 'LoadArea',
     props: {
         /**
          * 加载状态对象
@@ -89,13 +88,6 @@ export default {
             default: ''
         },
         /**
-         * 是否只加载一次
-        */
-        loadOnce: {
-            type: Boolean,
-            default: false
-        },
-        /**
          * 加载最低高度，css值
         */
         minHeight: {
@@ -103,16 +95,11 @@ export default {
             default: '0.50rem'
         },
         /**
-         * 
+         * 加载失败的展示文字
         */
         failText: {
             type: String,
             default: ''
-        }
-    },
-    data() {
-        return {
-            loadTime: 0
         }
     },
     computed: {

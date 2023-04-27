@@ -1,37 +1,42 @@
 <template>
-    <div class="add-fri-item" @click="showFriend">
-        <te-avatar
-            :src="data.avatar"
-            size="60px"
-        />
-        <div class="add-fri-item-info">
-            <div class="add-fri-item-info-header flex-between">
-                <div class="add-fri-item-name">{{data.nickname}}</div>
-            </div>
-            <div class="add-fri-item-intro">
-                {{data.intro}}
-            </div>   
-            <el-button 
-                v-if="!isSelf(data)"
-                class="add-fri-btn"
-                size="mini"
-                @click="_addFriend"
-            >
-                    添加
-            </el-button>
-            <span 
-                v-else
-                class="self-tag"    
-            >自己</span>
+  <div
+    class="add-fri-item"
+    @click="showFriend"
+  >
+    <te-avatar
+      :src="data.avatar"
+      size="60px"
+    />
+    <div class="add-fri-item-info">
+      <div class="add-fri-item-info-header flex-between">
+        <div class="add-fri-item-name">
+          {{ data.nickname }}
         </div>
+      </div>
+      <div class="add-fri-item-intro">
+        {{ data.intro }}
+      </div>   
+      <el-button 
+        v-if="!isSelf(data)"
+        class="add-fri-btn"
+        size="mini"
+        @click="_addFriend"
+      >
+        添加
+      </el-button>
+      <span 
+        v-else
+        class="self-tag"    
+      >自己</span>
     </div>
+  </div>
 </template>
 
 <script>
 import store from '@/store';
 import {addFriend} from '@/request/friend'
 export default {
-    name: 'add-fri-item',
+    name: 'AddFriItem',
     props: {
         data: {
             type: Object,

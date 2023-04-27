@@ -17,10 +17,10 @@
         <te-avatar 
           slot="reference"
           size="60px"
-          :src="user.avatar || DEFAULT_AVATAR"
+          :src="user.avatar"
         />
         <template slot="default">
-          <div class="setting-card">
+          <div class="menu-card">
             <div 
               class="user-card"
               :style="{
@@ -29,7 +29,7 @@
             >
               <te-avatar 
                 size="80px"
-                :src="user.avatar || DEFAULT_AVATAR"
+                :src="user.avatar"
                 upload
               />
               <div class="user-info">
@@ -41,20 +41,21 @@
                 </div>
               </div>
             </div>
-            <div class="setting-list">
+            <div class="menu-list">
               <te-gap orient="height" />
-              <setting-item @click="jump('/user');showPopver = false;">
+              <!-- 菜单列表项 -->
+              <menu-item @click="jump('/user');showPopver = false;">
                 个人中心
-              </setting-item>
-              <setting-item>设置</setting-item>
-              <setting-item>我的二维码和链接</setting-item>
+              </menu-item>
+              <menu-item>设置</menu-item>
+              <menu-item>我的二维码和链接</menu-item>
               <te-gap
                 orient="height"
-                class="divide-line"
+                gap="5px"
               />
-              <setting-item @click="logOut">
+              <menu-item @click="logOut">
                 退出登录
-              </setting-item>
+              </menu-item>
             </div>
           </div>                    
         </template>
@@ -178,7 +179,7 @@ export default {
             bottom 14px
     .main
         flex 1
-.setting-card
+.menu-card
     width 320px
     border-radius 4px 
     overflow hidden
@@ -200,6 +201,6 @@ export default {
                 margin-top 10px
                 transform translate(0, -13px)
                 padding-right 10px
-    .setting-list
+    .menu-list
         padding 10px 0
 </style>

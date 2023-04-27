@@ -1,42 +1,52 @@
 <template>
+  <div 
+    class="line-text" 
+    :style="{
+      transform: `translate(0,${offset})`,
+      padding: `0 ${pl}`
+    }"
+  >
     <div 
-        class="line-text" 
-        :style="{
-            transform: `translate(0,${offset})`,
-            padding: `0 ${pl}`
-        }"
-    >
-        <div 
-            class="line"
-            :style="{
-                background: lineColor
-            }"
-        ></div>
-        <div class="line-center">
-            <slot></slot>
-        </div>
+      class="line"
+      :style="{
+        background: lineColor
+      }"
+    />
+    <div class="line-center">
+      <slot />
     </div>
+  </div>
 </template>
 
 <script>
+/**
+ * @file 底部划线文字，展示类似底部提升的样子，像这样：  ------- 提示文字/链接 --------
+ * @type 全局组件，展示类组件，含有插槽，用来插入文字或者锚点
+ * @import_num 4
+ */
+
 export default {
-    name: 'line-text',
+    name: 'LineText',
     props: {
-        offset: {
+        offset: { // 上下偏移
             type: String,
             default: '0px'
         },
-        pr: {
-            type: String
+        pr: { // padding-right
+            type: String,
+            required: true
         },
-        pl: {
-            type: String
+        pl: { // padding-left
+            type: String,
+            required: true
         },
-        lineColor: {
-            type: String
+        lineColor: { // 线条的颜色
+            type: String,
+            required: true
         },
-        color: {
-            type: String
+        color: { // 字的颜色
+            type: String,
+            required: true
         }
     }
 }

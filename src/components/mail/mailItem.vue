@@ -1,25 +1,32 @@
 <template>
-    <div class="mail-item" @click="$emit('click')">
-        <te-avatar
-            :src="data.avatar"
-            size="60px"
-        />
-        <div class="mail-item-info">
-            <div class="mail-item-info-header flex-between">
-                <div class="mail-item-name">{{ data.nickname ?? '昵称加载失败' }}</div>
-                <div class="mail-item-last-online-time">上次在线：{{ lastOnlineTime }}</div>
-            </div>
-            <div class="mail-item-intro">
-                {{ data.intro ?? '暂无' }}
-            </div>
+  <div
+    class="mail-item"
+    @click="$emit('click')"
+  >
+    <te-avatar
+      :src="data.avatar"
+      size="60px"
+    />
+    <div class="mail-item-info">
+      <div class="mail-item-info-header flex-between">
+        <div class="mail-item-name">
+          {{ data.nickname ?? '昵称加载失败' }}
         </div>
+        <div class="mail-item-last-online-time">
+          上次在线：{{ lastOnlineTime }}
+        </div>
+      </div>
+      <div class="mail-item-intro">
+        {{ data.intro ?? '暂无' }}
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 import {parseTime} from '@/utils';
 export default {
-    name: 'mail-item',
+    name: 'MailItem',
     props: {
         data: {
             type: Object,

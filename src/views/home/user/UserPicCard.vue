@@ -7,7 +7,7 @@
   >
     <div class="user-index-detail">
       <te-avatar 
-        :src="user.avatar || DEFAULT_AVATAR"
+        :src="user.avatar"
         size="100px"
         :upload="canUpload"
       />

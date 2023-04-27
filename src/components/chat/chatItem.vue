@@ -1,26 +1,36 @@
 <template>
-    <div class="chat-item" @click="$emit('click')">
-        <te-avatar
-            :src="data.avatar"
-            size="60px"
-        />
-        <div class="chat-item-info">
-            <div class="chat-item-info-header flex-between">
-                <div class="chat-item-name">{{data.nickname}}</div>  
-                <div class="chat-item-last-time">{{ getTime() }}</div>
-            </div>
-            <p class="chat-item-last-msg">
-                {{ data.lastMsg ?? '暂无消息' }}
-                <span class="chat-item-unread" v-if="data.unread">{{data.unread < 99 ? data.unread : '99+'}}</span>
-            </p>
+  <div
+    class="chat-item"
+    @click="$emit('click')"
+  >
+    <te-avatar
+      :src="data.avatar"
+      size="60px"
+    />
+    <div class="chat-item-info">
+      <div class="chat-item-info-header flex-between">
+        <div class="chat-item-name">
+          {{ data.nickname }}
+        </div>  
+        <div class="chat-item-last-time">
+          {{ getTime() }}
         </div>
+      </div>
+      <p class="chat-item-last-msg">
+        {{ data.lastMsg ?? '暂无消息' }}
+        <span
+          v-if="data.unread"
+          class="chat-item-unread"
+        >{{ data.unread < 99 ? data.unread : '99+' }}</span>
+      </p>
     </div>
+  </div>
 </template>
 
 <script>
 import { parseTime } from '@/utils';
 export default {
-    name: 'chat-item',
+    name: 'ChatItem',
     props: {
         data: {
             type: Object,

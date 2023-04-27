@@ -1,34 +1,30 @@
 <template>
-    <el-input
-        class="te-search"
-        prefix-icon="el-icon-search"
-        size="small"
-        :class="{['text-center']: textCenter}"
-        :placeholder="placeholder"
-        :type="type"
-        :value="value"
-        @input="$emit('input', $event)"
-    />
+  <el-input
+    class="te-search"
+    prefix-icon="el-icon-search"
+    size="small"
+    type="text"
+    :placeholder="placeholder"
+    :value="value"
+    @input="$emit('input', $event)"
+  />
 </template>
 
 <script>
+/**
+ * @file 专门对搜索做的一个封装
+ * @import_num 3
+ */
 export default {
-    name: 'te-search',
+    name: 'TeSearch',
     props: {
-        placeholder: {
+        value: { // 用来实现 v-model
+            type: String,
+            default: ''
+        },
+        placeholder: { 
             type: String,
             default: '搜索'
-        },
-        textCenter: {
-            type: Boolean,
-            default: false
-        },
-        value: {
-            type: String,
-        },
-        type: {
-            type: String,
-            default: 'text'
         }
     }
 }
@@ -38,7 +34,4 @@ export default {
 .te-search
     >>>.el-input__inner
         border-radius 20px
-.text-center
-    >>>.el-input__inner
-        text-align center
 </style>

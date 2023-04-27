@@ -1,45 +1,46 @@
 <template>
-    <div class="dialog-wrapper"
-        ref="msgWrapper"
+  <div
+    ref="msgWrapper"
+    class="dialog-wrapper"
+  >
+    <div 
+      class="dialog-msg-wrapper"
     >
-        <div 
-            class="dialog-msg-wrapper"
+      <dialog-msg
+        v-for="({msg, to, time}, index) in curMsgs"
+        :key="index"
+        :msg="msg"
+        :is-me="to === 'me'"
+        :avatar="getAvatar(to)"
+        :time="parseTime(time)"
+      />        
+      <te-gap
+        orient="height"
+        gap="80px"
+      >    
+        <line-text
+          v-if="curMsgs.length> 20"
+          pl="10px"
+          pr="10px"
+          line-color="#efefef"
         >
-            <dialog-msg
-                v-for="({msg, to, time}, index) in curMsgs"
-                :key="index"
-                :msg="msg"
-                :is-me="to === 'me'"
-                :avatar="getAvatar(to)"
-                :time="parseTime(time)"
-            />        
-            <te-gap
-                orient="height"
-                gap="80px"
-            >    
-                <line-text
-                    pl="10px"
-                    pr="10px"
-                    line-color="#efefef"
-                    v-if="curMsgs.length> 20"
-                >
-                    到底了
-                </line-text>
-                <line-text
-                    pl="10px"
-                    pr="10px"
-                    line-color="#fff"
-                    color="#444"
-                    v-else-if="!curMsgs.length"
-                >
-                    快发条消息给他吧
-                </line-text>
-            </te-gap>
-        </div>
-        <dialog-msg-edit 
-            @enter="sendMsgs"
-        />
+          到底了
+        </line-text>
+        <line-text
+          v-else-if="!curMsgs.length"
+          pl="10px"
+          pr="10px"
+          line-color="#fff"
+          color="#444"
+        >
+          快发条消息给他吧
+        </line-text>
+      </te-gap>
     </div>
+    <dialog-msg-edit 
+      @enter="sendMsgs"
+    />
+  </div>
 </template>
 
 <script>
@@ -51,7 +52,7 @@ import { $bus } from '@/store';
 import { parseTime } from '@/utils';
 
 export default {
-    name: 'dialog-msgs',
+    name: 'DialogMsgs',
     components: {
         dialogMsgEdit,
         dialogMsg

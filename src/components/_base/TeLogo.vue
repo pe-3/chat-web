@@ -1,11 +1,14 @@
 <template>
-    <span class="te-logo">
-    </span>
+  <span class="te-logo" />
 </template>
 
 <script>
+/**
+ * @file 整个项目的 logo
+ * @import_num 1
+ */
 export default {
-    name: 'te-logo'
+    name: 'TeLogo'
 }
 </script>
 

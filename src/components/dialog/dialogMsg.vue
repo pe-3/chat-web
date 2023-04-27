@@ -1,37 +1,37 @@
 <template>
-    <div 
-        class="dialog-msg"
-        :class="{['dialog-me']: !isMe}"
-    >
-        <template v-if="!isMe">
-            <dialog-bubble 
-                :msg="msg"
-                :time="time"
-                :is-me="isMe"
-            />
-            <te-avatar
-                :src="avatar"
-                size="55px"
-            />
-        </template>
-        <template v-else>
-            <te-avatar
-                :src="avatar"
-                size="55px"
-            />
-            <dialog-bubble 
-                :msg="msg"
-                :time="time"
-                :is-me="isMe"
-            />
-        </template>
-    </div>
+  <div 
+    class="dialog-msg"
+    :class="{['dialog-me']: !isMe}"
+  >
+    <template v-if="!isMe">
+      <dialog-bubble 
+        :msg="msg"
+        :time="time"
+        :is-me="isMe"
+      />
+      <te-avatar
+        :src="avatar"
+        size="55px"
+      />
+    </template>
+    <template v-else>
+      <te-avatar
+        :src="avatar"
+        size="55px"
+      />
+      <dialog-bubble 
+        :msg="msg"
+        :time="time"
+        :is-me="isMe"
+      />
+    </template>
+  </div>
 </template>
 
 <script>
 import dialogBubble from './dialogBubble.vue';
 export default {
-    name: 'dialog-msg',
+    name: 'DialogMsg',
     components: {
         dialogBubble
     },
