@@ -1,5 +1,5 @@
 <template>
-  <load-area 
+  <te-load-area 
     :load="{
       pageLoading,
       pageSuccess,
@@ -56,7 +56,7 @@
         </el-button>
       </div>
     </div>
-  </load-area>
+  </te-load-area>
 </template>
 
 <script>

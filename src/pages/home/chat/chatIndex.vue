@@ -7,7 +7,7 @@
         <te-add />
       </div>
       <div class="chat-list-wrapper">
-        <load-area
+        <te-load-area
           :page-empty="Object.keys(mychats).length === 0"
           :load="{
             pageLoading,
@@ -23,11 +23,11 @@
             :class="{['selected-item']: curChat.username === data.username}"
             @click="selectChat(data)"
           />
-        </load-area>
+        </te-load-area>
       </div>
     </div>
     <div class="chat-dialog">
-      <load-area
+      <te-load-area
         :page-empty="JSON.stringify(curChat) === '{}'"
         :load="{
           pageLoading,
@@ -38,7 +38,7 @@
       >
         <dialog-header :data="curChat" />
         <dialog-msgs :data="curChat" />
-      </load-area>
+      </te-load-area>
     </div>
   </div>
 </template>

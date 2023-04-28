@@ -58,7 +58,6 @@ function listToTree(routeList) {
 }
 
 const routes = listToTree(routelist);
-console.log(routes);
 
 routes.forEach(route => {
     if (route.path === 'home') {

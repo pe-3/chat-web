@@ -44,18 +44,18 @@
             <div class="menu-list">
               <te-gap orient="height" />
               <!-- 菜单列表项 -->
-              <menu-item @click="jump('/user');showPopver = false;">
+              <te-menu-item @click="jump('/user');showPopver = false;">
                 个人中心
-              </menu-item>
-              <menu-item>设置</menu-item>
-              <menu-item>我的二维码和链接</menu-item>
+              </te-menu-item>
+              <te-menu-item>设置</te-menu-item>
+              <te-menu-item>我的二维码和链接</te-menu-item>
               <te-gap
                 orient="height"
                 gap="5px"
               />
-              <menu-item @click="logOut">
+              <te-menu-item @click="logOut">
                 退出登录
-              </menu-item>
+              </te-menu-item>
             </div>
           </div>                    
         </template>

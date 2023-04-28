@@ -3,19 +3,24 @@
     class="chat-item"
     @click="$emit('click')"
   >
+    <!-- 左侧头像展示 -->
     <te-avatar
       :src="data.avatar"
       size="60px"
     />
+    <!-- 聊天信息 -->
     <div class="chat-item-info">
       <div class="chat-item-info-header flex-between">
+        <!-- 聊天对象名称 -->
         <div class="chat-item-name">
           {{ data.nickname }}
         </div>  
+        <!-- 上次聊天时间 -->
         <div class="chat-item-last-time">
           {{ getTime() }}
         </div>
       </div>
+      <!-- 最近一条消息 -->
       <p class="chat-item-last-msg">
         {{ data.lastMsg ?? '暂无消息' }}
         <span
@@ -26,18 +31,33 @@
     </div>
   </div>
 </template>
-
 <script>
+/**
+ * @file 聊天列表项，通过点击聊天项和对象发起对话
+ * @import_num 1
+ * 功能上只暴露了 click 点击事件
+ * 基本上都是展示信息
+ */
 import { parseTime } from '@/utils';
 export default {
     name: 'ChatItem',
     props: {
+        /**
+         * 涵盖了所有要展示的信息
+         * @prop {Object} data
+         * @prop {} data.avatar 聊天对象头像
+         * @prop {} data.nickname 聊天对象昵称
+         * @prop {} data.time 上次聊天时间 事件戳形式，由本地方法解析后给用户展示
+         * @prop {} data.lastMsg 最近一条聊天记录
+         * @prop {} data.unred 未读消息个数
+         */
         data: {
             type: Object,
             required: true
         }
     },
     methods: {
+        // 解析上一次聊天时间戳
         getTime() {
             if(!this.data.time) return '';
             return parseTime(this.data.time);

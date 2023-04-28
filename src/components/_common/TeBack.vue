@@ -1,14 +1,18 @@
 <template>
-    <i 
-        class="el-icon-arrow-left"
-        @click="jump('../')"
-        :style="{color}"
-    ></i>
+  <i 
+    class="el-icon-arrow-left"
+    :style="{color}"
+    @click="jump('../')"
+  />
 </template>
 
 <script>
+/**
+ * @file 返回跳转的组件，返回上一级页面
+ * @import_num 2
+ */
 export default {
-    name: 'te-back',
+    name: 'TeBack',
     props: {
         color: {
             type: String,

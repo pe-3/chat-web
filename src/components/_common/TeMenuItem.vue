@@ -1,6 +1,6 @@
 <template>
   <div
-    class="menu-item"
+    class="te-menu-item"
     @click="$emit('click')"
   >
     <!-- 菜单项的内容 -->
@@ -26,12 +26,12 @@
  * @import_num 1
 */
 export default {
-    name: 'SettingItem'
+    name: 'TeMenuItem'
 }
 </script>
 
 <style lang="stylus" scoped>
-.menu-item   
+.te-menu-item   
     flex-between true
     padding 0 10px
     height-center 40px

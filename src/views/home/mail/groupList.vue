@@ -9,7 +9,7 @@
       v-if="show"
       class="mail-item-list"
     >
-      <load-area
+      <te-load-area
         :load="{
           pageLoading,
           pageSuccess,
@@ -26,7 +26,7 @@
           :class="{['selected-item']: judgeSelect(index, 'group', group)}"
           @click="select(index, 'group')"       
         />
-      </load-area>
+      </te-load-area>
     </div>
   </div>
 </template>

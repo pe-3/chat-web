@@ -9,7 +9,7 @@
       v-if="show"
       class="mail-item-list"
     >
-      <load-area
+      <te-load-area
         :load="{
           pageLoading,
           pageSuccess,
@@ -27,7 +27,7 @@
           @click="select(index, 'newFri', fri)"
           @agree-item-agree="agree"
         />
-      </load-area>
+      </te-load-area>
     </div>
   </div>
 </template>
