@@ -18,15 +18,15 @@
         orient="height"
         gap="80px"
       >    
-        <line-text
+        <te-line-text
           v-if="curMsgs.length> 20"
           pl="10px"
           pr="10px"
           line-color="#efefef"
         >
           到底了
-        </line-text>
-        <line-text
+        </te-line-text>
+        <te-line-text
           v-else-if="!curMsgs.length"
           pl="10px"
           pr="10px"
@@ -34,7 +34,7 @@
           color="#444"
         >
           快发条消息给他吧
-        </line-text>
+        </te-line-text>
       </te-gap>
     </div>
     <dialog-msg-edit 

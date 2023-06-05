@@ -38,13 +38,13 @@
         :key="index"
         :data="user"
       />
-      <line-text
+      <te-line-text
         pl="10px"
         pr="10px"
         line-color="#efefef"
       >
         到底了
-      </line-text>
+      </te-line-text>
     </div>
   </div>
 </template>

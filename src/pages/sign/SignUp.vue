@@ -38,12 +38,12 @@
     >
       注册
     </el-button>
-    <line-text offset="80px">
+    <te-line-text offset="80px">
       <span
         class="link"
         @click="jump('/sign/signIn')"
       >去登录</span>
-    </line-text>
+    </te-line-text>
   </div>
 </template>
 
