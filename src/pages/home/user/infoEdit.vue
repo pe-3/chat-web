@@ -175,9 +175,7 @@ export default {
             // 转化生日
             newInfo.birthday = `${newInfo.birthday[0]}.${newInfo.birthday[1]}`;
 
-            console.log(this.filterNewInfo(newInfo));
-            const res = await updateUserInfo(this.filterNewInfo(newInfo));
-            this.$success(res.message);
+            await updateUserInfo(this.filterNewInfo(newInfo));
 
             newInfo.birthday = this.birthday;
             this.setUser({...store.getters.user, ...newInfo});

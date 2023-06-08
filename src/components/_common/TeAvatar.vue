@@ -5,9 +5,14 @@
   >
     <!-- 展示头像 -->
     <img
+      v-if="!error"
       :src="src || DEFAULT_AVATAR"
-      alt="头像"
+      @error="error=true"
     >
+    <div
+      v-else 
+      class="error"
+    />
     <!-- 上传头像 -->
     <div 
       v-if="upload"
@@ -88,6 +93,7 @@ export default {
         return {
             showCutPhoto: false,
             image: '',
+            error: false,
         }
     },
     methods: {
@@ -109,7 +115,8 @@ export default {
             await this.$refs.cutAvatar.setAvatar(); 
             this.showCutPhoto = false;
         }
-    }
+    },
+
 }
 </script>
 
@@ -123,6 +130,12 @@ export default {
         .te-avatar-upload
             display grid
     img
+        width 100%
+        height 100%
+        border-radius 50%
+        box-sizing border-box
+        border 2px solid white
+    .error
         width 100%
         height 100%
         border-radius 50%

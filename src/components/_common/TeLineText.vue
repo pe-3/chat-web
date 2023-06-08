@@ -34,19 +34,19 @@ export default {
         },
         pr: { // padding-right
             type: String,
-            required: true
+            default: '0px'
         },
         pl: { // padding-left
             type: String,
-            required: true
+            default: '0px'
         },
         lineColor: { // 线条的颜色
             type: String,
-            required: true
+            default: '#888'
         },
         color: { // 字的颜色
             type: String,
-            required: true
+            default: '#333'
         }
     }
 }

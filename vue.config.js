@@ -15,7 +15,8 @@ module.exports = defineConfig({
     resolve: {
       alias: {
         // 配置别名
-        '@': path.resolve(__dirname, 'src')
+        '@': path.resolve(__dirname, 'src'),
+        'assets': path.resolve(__dirname, 'src/assets')
       },
       fallback: {
         "path": require.resolve("path-browserify")

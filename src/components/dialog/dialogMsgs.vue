@@ -17,25 +17,24 @@
       <te-gap
         orient="height"
         gap="80px"
-      >    
-        <te-line-text
-          v-if="curMsgs.length> 20"
-          pl="10px"
-          pr="10px"
-          line-color="#efefef"
-        >
-          到底了
-        </te-line-text>
-        <te-line-text
-          v-else-if="!curMsgs.length"
-          pl="10px"
-          pr="10px"
-          line-color="#fff"
-          color="#444"
-        >
-          快发条消息给他吧
-        </te-line-text>
-      </te-gap>
+      />
+      <te-line-text
+        v-if="curMsgs.length > 10"
+        pl="10px"
+        pr="10px"
+        line-color="#efefef"
+      >
+        到底了
+      </te-line-text>
+      <te-line-text
+        v-else-if="!curMsgs.length"
+        pl="10px"
+        pr="10px"
+        line-color="#fff"
+        color="#444"
+      >
+        快发条消息给他吧
+      </te-line-text>
     </div>
     <dialog-msg-edit 
       @enter="sendMsgs"

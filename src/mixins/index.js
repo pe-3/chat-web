@@ -4,7 +4,7 @@ export default {
     data() {
         return {
             // 默认头像
-            DEFAULT_AVATAR: 'http://localhost:3000/static/images/public.jpeg'
+            DEFAULT_AVATAR: 'http://localhost:3000/static/images/public.webp'
         }
     },
     methods: {
